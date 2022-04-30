@@ -14,6 +14,16 @@ public class Login {
 		return "fail";
 		
 	}
+	public String getName(String ID,List<List<String>> list) {
+		for (List<String> item : list) {
+			if(ID.equals( item.get(1)))
+			{
+				return item.get(0);
+			}
+		}
+		return "fail";
+	}
+	
 	public void logout() {
 		System.out.println("로그아웃");
 	}

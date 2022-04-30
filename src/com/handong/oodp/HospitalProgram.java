@@ -20,11 +20,12 @@ public class HospitalProgram {
 		Scanner sc = new Scanner(System.in);
 		Boolean run = true;
 		int num1, num2 = 0;
-		String id, pw;
+		String id = "", pw;
 		String position = "fail";
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
 
 		List<List<String>> list = new ArrayList<List<String>>();
+		
 		BufferedReader bufferedReader = null;
 
 		try {
@@ -225,9 +226,41 @@ public class HospitalProgram {
 					}
 
 				} else
-
 				{
-					System.out.println("매니저아님");
+					while(true) {
+						System.out.println("\n\n**** 매니저아님 ****");
+						System.out.println("1. 일정 관리");
+						System.out.println("0. 로그아웃");
+						System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+						int client_num = sc.nextInt();
+						while(client_num == 1) {
+							Work work = new Work();
+							int schedule1 = 0;
+							System.out.println("\n\n****일정 관리****");
+							System.out.println("1. 전체 일정 확인");
+							System.out.println("2. 일정 추가");
+							System.out.println("3. 일정 삭제");
+							System.out.println("0. 뒤로가기");
+							System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+							schedule1 = sc.nextInt();
+							if(schedule1 == 0) {
+								break;
+							}
+							else if(schedule1 == 1) {
+								work.displaySchedule();
+							}
+							else if (schedule1 == 2) {
+								String name = login.getName(id,list);
+								work.addWorkSchedule(name,position,list);
+							}
+						}
+						if(client_num == 0) {
+							break;
+						}
+						else {
+							continue;
+						}
+					}
 				}
 			}
 			else if(state==2) {
