@@ -86,6 +86,7 @@ public class HospitalProgram {
 						System.out.println("**** 병원 관리 프로그램 ****");
 						System.out.println("1. 고용관리");
 						System.out.println("2. 계정관리");
+						System.out.println("3. 일정관리");
 						System.out.println("0. 종료\n\n");
 
 						System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
@@ -93,7 +94,29 @@ public class HospitalProgram {
 						if (num1 == 0) { // 종료
 							run = false;
 							System.out.println("병원 관리 프로그램을 종료합니다.");
-						} else if (num1 == 1) {// 고용관리
+						}
+						else if(num1 == 3) {
+							Work work = new Work();
+							int schedule1 = 0;
+							System.out.println("\n\n****일정 관리****");
+							System.out.println("1. 전체 일정 확인");
+							System.out.println("2. 일정 추가");
+							System.out.println("3. 일정 삭제");
+							System.out.println("0. 뒤로가기");
+							System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+							schedule1 = sc.nextInt();
+							if(schedule1 == 0) {
+								break;
+							}
+							else if(schedule1 == 1) {
+								work.displaySchedule();
+							}
+							else if (schedule1 == 2) {
+								String name = login.getName(id,list);
+								work.addWorkSchedule(name,position,list);
+							}
+						}
+						else if (num1 == 1) {// 고용관리
 							while (true) {
 								System.out.println("\n\n**** 고용 관리 ****");
 								System.out.println("1. 의사/간호사 추가");
@@ -263,7 +286,8 @@ public class HospitalProgram {
 								break;
 							}
 							else if(schedule1 == 1) {
-								work.displaySchedule();
+								//work.displaySchedule();
+								work.loadWorkSchedule();
 							}
 							else if (schedule1 == 2) {
 								String name = login.getName(id,list);

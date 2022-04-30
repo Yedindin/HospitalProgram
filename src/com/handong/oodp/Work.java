@@ -1,15 +1,50 @@
 package com.handong.oodp;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Work {
 	
-	private List[][] schedule = new List [7][3];
+	private List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
 	
 	
-	public void updateWorkSchedule() {
-		
+	public void loadWorkSchedule() {
+		//인우학우님
+		try {
+			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/applySchedule.csv"));
+			String line = "";
+			int row_count = 0;
+			
+			while ((line = bufferedReader.readLine()) != null) {
+				List<List<String>> weektime_= new ArrayList<List<String>>(7);
+				List<String> stringList = new ArrayList<>();
+				String[] work_1 = new String[7];
+				work_1 = line.split(",");
+				for(String item : work_1) {
+					String[] peopleList = item.split("\\*");
+					stringList= Arrays.asList(peopleList);
+					weektime_.add(stringList);
+				}
+				schedule.add(weektime_);
+			}
+			
+			for(int i = 0; i<schedule.size();i++)
+				for(int j = 0; j<schedule.get(i).size();j++) {
+					for(int k = 0;k <schedule.get(i).get(j).size(); k++)
+						System.out.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
+					System.out.println();
+				}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -22,41 +57,77 @@ public class Work {
 		
 	}
 	
+	public void deleteWorkSchedule(String user, String position, List<List<String>> list) {
+		Scanner sc = new Scanner(System.in);
+		//display
+		if (position.equals("manager")) {
+			System.out.println("삭제하고 싶은 스케줄의 유저를 입력하세요 (예시.홍길동)");
+			String crew_name = sc.next();
+			boolean isNoName = true;
+			for (List<String> item : list) {
+				if (crew_name.equals(item.get(0))) {
+					isNoName = false;
+				}
+			}
+			if(isNoName) {
+				System.out.println("존재하지 않는 유저입니다.");
+			}
+			else {
+				System.out.println("원하는 삭제 시간을 입력하세요(예시. 월1).");
+				String time = sc.next();
+				System.out.println(time);
+
+				// 삭제**
+				// save
+				// update
+				System.out.println("삭제되었습니다.");
+			}
+		}
+		else {
+			System.out.println("원하는 삭제 시간을 입력하세요(예시. 월1).");
+			String time = sc.next();
+			System.out.println(time);
+			// 삭제**
+			// save
+			// update
+			System.out.println("삭제되었습니다.");
+		}
+		
+	}
+	
 	public void addWorkSchedule(String user, String position, List<List<String>> list) {
 		Scanner sc = new Scanner(System.in);
-		if (position == "manager") {
-//			for(;;) {
-//				System.out.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
-//				String crew_name = sc.next();
-////				for (List<String> item : list) {
-////					if (name.equals(item.get(0))&&item.get(1).equals("")) {
-////						System.out.println("사용할 ID를 입력하세요.");
-////						this.ID = sc.next();
-////						System.out.println("사용할 패스워드를 입력하세요.");
-////						this.PW = sc.next();
-////						System.out.println("회원등록이 완료되었습니다.");
-////						item.set(1,this.ID);
-////						item.set(2, this.PW);
-////						return list;
-////					}
-////				}
-////				if() {
-////					
-////				}
-//				System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
-//			}
-//
-//			System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
-//			String time = sc.next();
-//			System.out.println(time);
-			System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
+		if (position.equals("manager")) {
+				System.out.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
+				String crew_name = sc.next();
+				boolean isNoName = true;
+				for (List<String> item : list) {
+					if (crew_name.equals(item.get(0))) {
+						isNoName = false;
+					}
+				}
+				if(isNoName) {
+					System.out.println("존재하지 않는 유저입니다.");
+				}
+				else {
+					System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
+					String time = sc.next();
+					System.out.println(time);
+
+					// 추가**
+					// save
+					// update
+					System.out.println("추가되었습니다.");
+				}
 		}
 		else {
 			System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
 			String time = sc.next();
 			System.out.println(time);
+			// 추가**
+			// save
+			// update
+			System.out.println("추가되었습니다.");
 		}
 	}
-	
-
 }
