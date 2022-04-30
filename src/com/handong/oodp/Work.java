@@ -1,6 +1,9 @@
 package com.handong.oodp;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,8 +17,7 @@ public class Work {
 	private List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
 	
 	
-	public void loadWorkSchedule() {
-		//인우학우님
+	public List<List<List<String>>> loadWorkSchedule(List<List<List<String>>> schedule) {
 		try {
 			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/applySchedule.csv"));
 			String line = "";
@@ -27,19 +29,45 @@ public class Work {
 				String[] work_1 = new String[7];
 				work_1 = line.split(",");
 				for(String item : work_1) {
-					String[] peopleList = item.split("\\*");
+					String[] peopleList = item.split("/");
 					stringList= Arrays.asList(peopleList);
 					weektime_.add(stringList);
 				}
 				schedule.add(weektime_);
 			}
+//			for(int i = 0; i<schedule.size();i++)
+//				for(int j = 0; j<schedule.get(i).size();j++) {
+//					for(int k = 0;k <schedule.get(i).get(j).size(); k++)
+//						System.out.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
+//					System.out.println();
+//				}
 			
-			for(int i = 0; i<schedule.size();i++)
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return schedule;
+	}
+	
+	public void updateWorkSchedule(List<List<List<String>>> schedule) {
+		String filePath = "./data/applySchedule.csv";
+		String NEWLINE = System.lineSeparator();
+		try {
+			File file = new File(filePath);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			for(int i = 0; i<schedule.size();i++) {
 				for(int j = 0; j<schedule.get(i).size();j++) {
+					String temp = "";
 					for(int k = 0;k <schedule.get(i).get(j).size(); k++)
-						System.out.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
-					System.out.println();
+						temp+=(schedule.get(i).get(j).get(k)+"/");
+					temp+=",";
+					System.out.println(temp);
+					bw.write(temp);
 				}
+				bw.write(NEWLINE);
+			}
+			bw.flush();
+			bw.close();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -47,6 +75,7 @@ public class Work {
 		}
 		
 	}
+	
 	
 	public void displaySchedule() {
 		System.out.println("\n\n****전체 일정****");
@@ -57,7 +86,7 @@ public class Work {
 		
 	}
 	
-	public void deleteWorkSchedule(String user, String position, List<List<String>> list) {
+	public List<List<List<String>>> deleteWorkSchedule(String user, String position, List<List<String>> list,List<List<List<String>>> schedule) {
 		Scanner sc = new Scanner(System.in);
 		//display
 		if (position.equals("manager")) {
@@ -92,10 +121,10 @@ public class Work {
 			// update
 			System.out.println("삭제되었습니다.");
 		}
-		
+		return schedule;
 	}
 	
-	public void addWorkSchedule(String user, String position, List<List<String>> list) {
+	public List<List<List<String>>> addWorkSchedule(String user, String position, List<List<String>> list,List<List<List<String>>> schedule) {
 		Scanner sc = new Scanner(System.in);
 		if (position.equals("manager")) {
 				System.out.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
@@ -128,6 +157,7 @@ public class Work {
 			// save
 			// update
 			System.out.println("추가되었습니다.");
-		}
+		}//not manager
+		return schedule;
 	}
 }

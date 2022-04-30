@@ -25,6 +25,7 @@ public class HospitalProgram {
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
 
 		List<List<String>> list = new ArrayList<List<String>>();
+		List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
 		
 		BufferedReader bufferedReader = null;
 
@@ -54,7 +55,8 @@ public class HospitalProgram {
 			}
 		}
 		EmploymentManagement emplmanage = new EmploymentManagement(list);
-
+		Work work = new Work();
+		work.loadWorkSchedule(schedule);
 		/*
 		 * 리스트 출력 for (List<String> item : list) { System.out.println(item.get(0) +
 		 * "and" + item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
@@ -96,7 +98,6 @@ public class HospitalProgram {
 							System.out.println("병원 관리 프로그램을 종료합니다.");
 						}
 						else if(num1 == 3) {
-							Work work = new Work();
 							int schedule1 = 0;
 							System.out.println("\n\n****일정 관리****");
 							System.out.println("1. 전체 일정 확인");
@@ -113,7 +114,7 @@ public class HospitalProgram {
 							}
 							else if (schedule1 == 2) {
 								String name = login.getName(id,list);
-								work.addWorkSchedule(name,position,list);
+								schedule = work.addWorkSchedule(name,position,list,schedule);
 							}
 						}
 						else if (num1 == 1) {// 고용관리
@@ -273,7 +274,7 @@ public class HospitalProgram {
 						System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
 						int client_num = sc.nextInt();
 						while(client_num == 1) {
-							Work work = new Work();
+							
 							int schedule1 = 0;
 							System.out.println("\n\n****일정 관리****");
 							System.out.println("1. 전체 일정 확인");
@@ -287,11 +288,11 @@ public class HospitalProgram {
 							}
 							else if(schedule1 == 1) {
 								//work.displaySchedule();
-								work.loadWorkSchedule();
+								work.updateWorkSchedule(schedule);
 							}
 							else if (schedule1 == 2) {
 								String name = login.getName(id,list);
-								work.addWorkSchedule(name,position,list);
+								schedule = work.addWorkSchedule(name,position,list,schedule);
 							}
 						}
 						if(client_num == 0) {
