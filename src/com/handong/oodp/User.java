@@ -1,5 +1,12 @@
 package com.handong.oodp;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,19 +24,54 @@ public class User {
 	public User(List<List<String>> list) {
 		this.list = list;
 	}
-
-	public List<List<String>> addUser(String name) {
+	
+	public List<List<String>> addUser(String name) throws IOException {
 		Scanner sc = new Scanner(System.in);
+		
+		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
 
 		for (List<String> item : list) {
-			if (name.equals(item.get(0))&&item.get(1).equals("")) {
+			if (name.equals(item.get(0)) && item.get(1).equals("")) {
 				System.out.println("사용할 ID를 입력하세요.");
 				this.ID = sc.next();
 				System.out.println("사용할 패스워드를 입력하세요.");
 				this.PW = sc.next();
 				System.out.println("회원등록이 완료되었습니다.");
-				item.set(1,this.ID);
+				item.set(0, item.get(0));
+				item.set(1, this.ID);
 				item.set(2, this.PW);
+				item.set(3, item.get(3));
+				item.set(4, item.get(4));
+				item.set(5, item.get(5));
+
+				try {
+
+					StringBuffer data = new StringBuffer();
+					Charset.forName("UTF-8");
+					for (List<String> item2 : list) {
+						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
+								+ item2.get(4) + "," + item2.get(5) + "\n");
+					}
+					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
+					outputStream.write(data.toString().getBytes());
+					outputStream.close();
+
+					System.out.println("저장완료");
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (br != null) {
+							br.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+
+					}
+				}
 				return list;
 			}
 		}

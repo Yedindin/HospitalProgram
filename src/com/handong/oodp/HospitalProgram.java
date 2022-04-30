@@ -157,12 +157,12 @@ public class HospitalProgram {
 										user.setAge(sc.next());
 										System.out.println("부서를 입력해주세요.");
 										user.setDepartment(sc.next());
-										user.setPosition("Doctor");
+										user.setPosition("Nurse");
 										list = emplmanage.addNurse(user);
 
 										try {
 											StringBuffer data = new StringBuffer();
-											Charset.forName("EUC-KR");
+											Charset.forName("UTF-8");
 											for (List<String> item : list) {
 
 												data.append(item.get(0) + "," + item.get(1) + "," + item.get(2) + ","
@@ -215,7 +215,7 @@ public class HospitalProgram {
 							System.out.println("회원등록할 이름을 입력해 주세요.");
 							User user = new User(list);
 							list = user.addUser(sc.next());
-
+							continue;
 						} else if (num1 == 3) {// 로그인
 
 						} else {
@@ -233,7 +233,9 @@ public class HospitalProgram {
 			else if(state==2) {
 				System.out.println("성함을 입력해 주세요.");
 				User user = new User(list);
-				list = user.addUser(sc.next());
+				String name = sc.next();
+				list = user.addUser(name);
+				
 				
 			}
 			else if(state==0) {
