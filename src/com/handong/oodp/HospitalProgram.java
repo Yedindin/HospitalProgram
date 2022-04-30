@@ -199,11 +199,14 @@ public class HospitalProgram {
 									System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
 									int num = sc.nextInt();
 									if (num == 1) {
+										System.out.println("삭제할 의사의 이름을 입력해 주세요.");
 										User user = new User(list);
-										list = emplmanage.deleteDoctor(user);
+										list = emplmanage.deleteDoctor(sc.next());
+										
 									} else if (num == 2) {
+										System.out.println("삭제할 간호사의 이름을 입력해 주세요.");
 										User user = new User(list);
-										list = emplmanage.deleteNurse(user);
+										list = emplmanage.deleteNurse(sc.next());
 									} else {
 										break;
 									}
@@ -212,13 +215,26 @@ public class HospitalProgram {
 								}
 							}
 						} else if (num1 == 2) {// 계정관리
-							System.out.println("회원등록할 이름을 입력해 주세요.");
-							User user = new User(list);
-							list = user.addUser(sc.next());
-							continue;
-						} else if (num1 == 3) {// 로그인
-
-						} else {
+							System.out.println("\n\n**** 계정관리 ****");
+							System.out.println("1. 회원등록");
+							System.out.println("2. 회원삭제");
+							System.out.println("0. 이전으로 돌아가기\n\n");
+							System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+							int num = sc.nextInt();
+							if (num == 1) {
+								System.out.println("회원등록할 이름을 입력해 주세요.");
+								User user = new User(list);
+								list = user.addUser(sc.next());
+								continue;
+							} else if (num == 2) {
+								System.out.println("삭제할 회원의 이름을 입력해 주세요.");
+								User user = new User(list);
+								list = user.deleteUser(sc.next());
+							} else {
+								continue;
+							}
+							
+						} else { 
 							System.out.println("잘못된 입력입니다. 다시 입력해주세요.\n\n");
 							continue;
 						}

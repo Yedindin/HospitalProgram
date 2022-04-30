@@ -93,8 +93,51 @@ public class User {
 //	public void editUser(User user) {
 //		System.out.println("user 수정 완료");
 //	}
-	public List<List<String>> deleteUser(User user) {
-		System.out.println("user 삭제 완료");
+	public List<List<String>> deleteUser(String name) throws IOException {
+		
+		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
+
+		int index = 0;
+		for (List<String> item : list ) {
+			if(item.contains(name))
+			{
+				//System.out.println(list.get(index));
+				list.remove(index);
+				
+				System.out.println("user 삭제 완료");
+				try {
+
+					StringBuffer data = new StringBuffer();
+					Charset.forName("UTF-8");
+					for (List<String> item2 : list) {
+						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
+								+ item2.get(4) + "," + item2.get(5) + "\n");
+					}
+					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
+					outputStream.write(data.toString().getBytes());
+					outputStream.close();
+
+					System.out.println("저장완료");
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (br != null) {
+							br.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+
+					}
+				}
+				return list;
+			}
+			index++;
+		}
+		System.out.println("존재하지 않는 회원입니다.");
 		return list;
 
 	}
