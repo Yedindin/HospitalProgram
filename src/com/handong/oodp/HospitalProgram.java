@@ -212,6 +212,9 @@ public class HospitalProgram {
 								}
 							}
 						} else if (num1 == 2) {// 계정관리
+							System.out.println("회원등록할 이름을 입력해 주세요.");
+							User user = new User(list);
+							list = user.addUser(sc.next());
 
 						} else if (num1 == 3) {// 로그인
 
