@@ -1,4 +1,5 @@
-ï»¿name,ID,PW,department,position
-ê¹€ì˜ˆì§„,admin,1234,,manager
-ì¥ì¤€í˜,admin2,1235,,manager
-ì •ì¸ìš°,nurse1,2345,,nurse
+name,ID,PW,department,position,age
+±è¿¹Áø,admin,1234,,manager,25
+ÀåÁØÇõ,admin2,1235,,manager,25
+Á¤ÀÎ¿ì,nurse,12345,,nurse,25
+±èÁö¼ö,,,d,Doctor,25
