@@ -110,11 +110,15 @@ public class HospitalProgram {
 								break;
 							}
 							else if(schedule1 == 1) {
-								work.displaySchedule();
+								work.displaySchedule(schedule);
 							}
 							else if (schedule1 == 2) {
 								String name = login.getName(id,list);
 								schedule = work.addWorkSchedule(name,position,list,schedule);
+							}
+							else if (schedule1 == 3) {
+								String name = login.getName(id,list);
+								schedule = work.deleteWorkSchedule(name,position,list,schedule);
 							}
 						}
 						else if (num1 == 1) {// 고용관리
@@ -287,8 +291,7 @@ public class HospitalProgram {
 								break;
 							}
 							else if(schedule1 == 1) {
-								//work.displaySchedule();
-								work.updateWorkSchedule(schedule);
+								work.displaySchedule(schedule);
 							}
 							else if (schedule1 == 2) {
 								String name = login.getName(id,list);

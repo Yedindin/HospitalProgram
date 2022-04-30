@@ -77,12 +77,22 @@ public class Work {
 	}
 	
 	
-	public void displaySchedule() {
+	public void displaySchedule(List<List<List<String>>> schedule) {
 		System.out.println("\n\n****전체 일정****");
-		System.out.println("	월			화			수			목			금			토			일");
-		System.out.print("1"); //사람이름
-		System.out.print("2");
-		System.out.print("3");
+		System.out.println("	월		화		수		목		금		토		일");
+		for(int i = 0; i<schedule.size();i++) {
+			System.out.print(Integer.toString(i+1)); 
+			for(int j = 0; j<schedule.get(i).size();j++) {
+				String temp = "";
+				for(int k = 0;k <schedule.get(i).get(j).size(); k++) {
+					if(k == 0)
+						temp+=(schedule.get(i).get(j).get(k));
+					else temp+=(","+schedule.get(i).get(j).get(k));
+				}
+				System.out.print(temp+"|	");
+			}
+			System.out.println();
+		}
 		
 	}
 	
