@@ -35,7 +35,7 @@ public class User {
 		}
 		System.out.println("등록 대상이 아닙니다.");
 		return list;
-s
+
 //		List<String> data = new ArrayList<>();
 //		data.add(0,name);
 //		data.add(3,department);
