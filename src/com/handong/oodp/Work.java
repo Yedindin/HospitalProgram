@@ -204,7 +204,7 @@ public class Work {
 	         people_list = temp.toArray(new String[temp.size()]);
 	         new_list = new String[temp.size()-1];
 	         for(int i1=0; i1<temp.size(); i1++) {
-	        	 if(crew_name.equals(people_list[i1])) {
+	        	 if(user.equals(people_list[i1])) {
 	        		 if(i1==temp.size()-1) {
 	        			 for(int i2=0; i2<temp.size()-1; i2++) {
 	    		        	 new_list[i2] = people_list[i2];
