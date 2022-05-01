@@ -120,6 +120,7 @@ public class HospitalProgram {
 								String name = login.getName(id,list);
 								schedule = work.deleteWorkSchedule(name,position,list,schedule);
 							}
+							
 						}
 						else if (num1 == 1) {// 고용관리
 							while (true) {
