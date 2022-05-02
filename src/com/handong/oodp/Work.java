@@ -147,13 +147,13 @@ public class Work {
             
             
             Boolean flag = true;
-            for(int k = 0;k < schedule.get(i).get(j).size(); k++) {
-               if(user.equals(schedule.get(i).get(j).get(k))) {
+            for(int k = 0;k <schedule.get(j).get(i).size(); k++) {
+               if(crew_name.equals(schedule.get(j).get(i).get(k))) {
+            	  System.out.println(schedule.get(j).get(i).get(k));
                   flag = false;
                   break;
                }
             }
-            
             if(flag) {
                System.out.println("유효하지 않는 입력입니다.");
                return schedule;
@@ -224,13 +224,13 @@ public class Work {
             return schedule;
          }
          Boolean flag = true;
-         for(int k = 0;k < schedule.get(i).get(j).size(); k++) {
-            if(user.equals(schedule.get(i).get(j).get(k))) {
-               flag = false;
-               break;
-            }
-         }
-         
+         for(int k = 0;k <schedule.get(j).get(i).size(); k++) {
+             if(user.equals(schedule.get(j).get(i).get(k))) {
+                 System.out.println("유효하지 않는 입력입니다.");
+                flag = false;
+                break;
+             }
+          }
          if(flag) {
             System.out.println("유효하지 않는 입력입니다.");
             return schedule;
