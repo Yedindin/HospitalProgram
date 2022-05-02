@@ -165,10 +165,6 @@ public class Work {
 		         }
 		         week.set(i, Arrays.asList(new_list));
 		         schedule.set(j, week);
-
-				// 삭제**
-				// save
-				// update
 				System.out.println("삭제되었습니다.");
 			}
 		}
@@ -225,11 +221,9 @@ public class Work {
 	         }
 	         week.set(i, Arrays.asList(new_list));
 	         schedule.set(j, week);
-			// 삭제**
-			// save
-			// update
 			System.out.println("삭제되었습니다.");
 		}
+		updateWorkSchedule(schedule);
 		return schedule;
 	}
 	
