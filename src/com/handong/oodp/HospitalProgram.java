@@ -136,7 +136,7 @@ public class HospitalProgram {
 								System.out.println("1. 전체 일정 확인");
 								System.out.println("2. 일정 추가");
 								System.out.println("3. 일정 삭제");
-								System.out.println("0. 뒤로가기");
+								System.out.println("0. 로그아웃");
 								System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
 
 								while (true) {
