@@ -26,9 +26,9 @@ public class EmploymentManagement {
 		data.add(4, user.getPosition());
 		data.add(5, user.getAge());
 		list.add(data);
-		for (List<String> item : list) {
-			System.out.println(item.get(0) + "and" + item.get(1) + item.get(2) + item.get(3) + item.get(4) + item.get(5));
-		}
+//		for (List<String> item : list) {
+//			System.out.println(item.get(0) + "and" + item.get(1) + item.get(2) + item.get(3) + item.get(4) + item.get(5));
+//		}
 		System.out.println("의사 추가 완료");
 		return list;
 
