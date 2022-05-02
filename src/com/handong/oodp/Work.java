@@ -41,7 +41,6 @@ public class Work {
 //						System.out.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
 //					System.out.println();
 //				}
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,7 +60,6 @@ public class Work {
 					for(int k = 0;k <schedule.get(i).get(j).size(); k++)
 						temp+=(schedule.get(i).get(j).get(k)+"/");
 					temp+=",";
-					System.out.println(temp);
 					bw.write(temp);
 				}
 				bw.write(NEWLINE);
@@ -131,12 +129,21 @@ public class Work {
 					i=5;
 				else if (time.charAt(0)=='일')
 					i=6;
+				else {
+					System.out.println("유효하지 않는 입력입니다.");
+					return schedule;
+				}
+					
 				if (time.charAt(1)=='1')
 					j=0;
 				else if (time.charAt(1)=='2')
 					j=1;
 				else if (time.charAt(1)=='3')
 					j=2;
+				else {
+					System.out.println("유효하지 않는 입력입니다.");
+					return schedule;
+				}
 				
 		         List<List<String>> week = schedule.get(j);
 		         List<String> temp = schedule.get(j).get(i);
@@ -161,7 +168,6 @@ public class Work {
 		        			 }
 		        		 }
 		        	 }
-		        	
 		         }
 		         week.set(i, Arrays.asList(new_list));
 		         schedule.set(j, week);
@@ -187,12 +193,21 @@ public class Work {
 				i=5;
 			else if (time.charAt(0)=='일')
 				i=6;
+			else {
+				System.out.println("유효하지 않는 입력입니다.");
+				return schedule;
+			}
+			
 			if (time.charAt(1)=='1')
 				j=0;
 			else if (time.charAt(1)=='2')
 				j=1;
 			else if (time.charAt(1)=='3')
 				j=2;
+			else {
+				System.out.println("유효하지 않는 입력입니다.");
+				return schedule;
+			}
 			
 	         List<List<String>> week = schedule.get(j);
 	         List<String> temp = schedule.get(j).get(i);
@@ -217,10 +232,9 @@ public class Work {
 	        			 }
 	        		 }
 	        	 }
-	        	
 	         }
-	         week.set(i, Arrays.asList(new_list));
-	         schedule.set(j, week);
+	        week.set(i, Arrays.asList(new_list));
+	        schedule.set(j, week);
 			System.out.println("삭제되었습니다.");
 		}
 		updateWorkSchedule(schedule);
@@ -260,12 +274,21 @@ public class Work {
 						i=5;
 					else if (time.charAt(0)=='일')
 						i=6;
+					else {
+						System.out.println("유효하지 않는 입력입니다.");
+						return schedule;
+					}
+					
 					if (time.charAt(1)=='1')
 						j=0;
 					else if (time.charAt(1)=='2')
 						j=1;
 					else if (time.charAt(1)=='3')
 						j=2;
+					else {
+						System.out.println("유효하지 않는 입력입니다.");
+						return schedule;
+					}
 					
 			         List<List<String>> week = schedule.get(j);
 			         List<String> temp = schedule.get(j).get(i);
@@ -274,8 +297,6 @@ public class Work {
 			         people_list[temp.size()]=crew_name;
 			         week.set(i, Arrays.asList(people_list));
 			         schedule.set(j, week);
-					// 추가**
-					// save
 				}
 		}
 		else {			
@@ -296,12 +317,21 @@ public class Work {
 				i=5;
 			else if (time.charAt(0)=='일')
 				i=6;
+			else {
+				System.out.println("유효하지 않는 입력입니다.");
+				return schedule;
+			}
+			
 			if (time.charAt(1)=='1')
 				j=0;
 			else if (time.charAt(1)=='2')
 				j=1;
 			else if (time.charAt(1)=='3')
 				j=2;
+			else {
+				System.out.println("유효하지 않는 입력입니다.");
+				return schedule;
+			}
 			
 	         List<List<String>> week = schedule.get(j);
 	         List<String> temp = schedule.get(j).get(i);
@@ -310,10 +340,6 @@ public class Work {
 	         people_list[temp.size()]=user;
 	         week.set(i, Arrays.asList(people_list));
 	         schedule.set(j, week);
-			// 추가**
-			// save
-			// update
-			
 		}//not manager
 		updateWorkSchedule(schedule);
 		System.out.println("추가되었습니다.");

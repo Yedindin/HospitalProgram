@@ -95,32 +95,41 @@ public class HospitalProgram {
 						num1 = sc.nextInt();
 						if (num1 == 0) { // 종료
 							run = false;
+							position = "fail";
 							System.out.println("병원 관리 프로그램을 종료합니다.");
 						}
 						else if(num1 == 3) {
-							int schedule1 = 0;
-							System.out.println("\n\n****일정 관리****");
-							System.out.println("1. 전체 일정 확인");
-							System.out.println("2. 일정 추가");
-							System.out.println("3. 일정 삭제");
-							System.out.println("0. 뒤로가기");
-							System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-							schedule1 = sc.nextInt();
-							if(schedule1 == 0) {
-								break;
+							while(true) {
+								int schedule1 = 0;
+								System.out.println("\n\n****일정 관리****");
+								System.out.println("1. 전체 일정 확인");
+								System.out.println("2. 일정 추가");
+								System.out.println("3. 일정 삭제");
+								System.out.println("0. 뒤로가기");
+								System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+								schedule1 = sc.nextInt();
+								if(schedule1 == 0) {
+									break;
+								}
+								else if(schedule1 == 1) {
+									work.displaySchedule(schedule);
+								}
+								else if (schedule1 == 2) {
+									String name = login.getName(id,list);
+									schedule = work.addWorkSchedule(name,position,list,schedule);
+								}
+								else if (schedule1 == 3) {
+									String name = login.getName(id,list);
+									schedule = work.deleteWorkSchedule(name,position,list,schedule);
+								}
+								else if(schedule1 == 0) {
+									break;
+								}
+								else{
+									System.out.println("유효하지 않는 입력입니다.");
+								}
 							}
-							else if(schedule1 == 1) {
-								work.displaySchedule(schedule);
-							}
-							else if (schedule1 == 2) {
-								String name = login.getName(id,list);
-								schedule = work.addWorkSchedule(name,position,list,schedule);
-							}
-							else if (schedule1 == 3) {
-								String name = login.getName(id,list);
-								schedule = work.deleteWorkSchedule(name,position,list,schedule);
-							}
-							
+
 						}
 						else if (num1 == 1) {// 고용관리
 							while (true) {
@@ -298,8 +307,16 @@ public class HospitalProgram {
 								String name = login.getName(id,list);
 								schedule = work.addWorkSchedule(name,position,list,schedule);
 							}
+							else if (schedule1 == 3) {
+								String name = login.getName(id,list);
+								schedule = work.deleteWorkSchedule(name,position,list,schedule);
+							}
+							else {
+								System.out.println("유효하지 않는 입력입니다.");
+							}
 						}
 						if(client_num == 0) {
+							position = "fail";
 							break;
 						}
 						else {
@@ -313,8 +330,6 @@ public class HospitalProgram {
 				User user = new User(list);
 				String name = sc.next();
 				list = user.addUser(name);
-				
-				
 			}
 			else if(state==0) {
 				break;
