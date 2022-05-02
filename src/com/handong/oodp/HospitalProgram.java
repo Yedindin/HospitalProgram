@@ -2,6 +2,7 @@ package com.handong.oodp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.io.FileOutputStream;
@@ -26,7 +27,7 @@ public class HospitalProgram {
 
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
-		
+
 		BufferedReader bufferedReader = null;
 
 		try {
@@ -61,16 +62,31 @@ public class HospitalProgram {
 		 * 리스트 출력 for (List<String> item : list) { System.out.println(item.get(0) +
 		 * "and" + item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
 		 */
-		while(true) {
+		while (true) {
 
 			System.out.println("**** 병원 관리 프로그램 ****");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원등록");
 			System.out.println("0. 종료\n\n");
 			System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-			
-			int state = sc.nextInt();
-			if (state == 1) { //로그인
+
+			int state = 0;
+			while (true) {
+				try {
+					state = sc.nextInt();
+					break;
+				} catch (InputMismatchException e) {
+					sc = new Scanner(System.in);
+					System.out.println("숫자만 입력하세요.\n\n");
+					System.out.println("**** 병원 관리 프로그램 ****");
+					System.out.println("1. 로그인");
+					System.out.println("2. 회원등록");
+					System.out.println("0. 종료\n\n");
+					System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+				}
+			}
+
+			if (state == 1) { // 로그인
 				while (position == "fail") {
 					System.out.println("ID를 입력하세요.");
 					id = sc.next();
@@ -92,14 +108,29 @@ public class HospitalProgram {
 						System.out.println("0. 종료\n\n");
 
 						System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-						num1 = sc.nextInt();
+
+						while (true) {
+							try {
+								num1 = sc.nextInt();
+								break;
+							} catch (InputMismatchException e) {
+								sc = new Scanner(System.in);
+								System.out.println("숫자만 입력하세요.\n\n");
+								System.out.println("**** 병원 관리 프로그램 ****");
+								System.out.println("1. 로그인");
+								System.out.println("2. 회원등록");
+								System.out.println("0. 종료\n\n");
+								System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+							}
+						}
+
 						if (num1 == 0) { // 종료
-							run = false;
+							//run = false;
 							position = "fail";
 							System.out.println("병원 관리 프로그램을 종료합니다.");
-						}
-						else if(num1 == 3) {
-							while(true) {
+							break;
+						} else if (num1 == 3) {
+							while (true) {
 								int schedule1 = 0;
 								System.out.println("\n\n****일정 관리****");
 								System.out.println("1. 전체 일정 확인");
@@ -107,38 +138,61 @@ public class HospitalProgram {
 								System.out.println("3. 일정 삭제");
 								System.out.println("0. 뒤로가기");
 								System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-								schedule1 = sc.nextInt();
-								if(schedule1 == 0) {
-									break;
+
+								while (true) {
+									try {
+										schedule1 = sc.nextInt();
+										break;
+									} catch (InputMismatchException e) {
+										sc = new Scanner(System.in);
+										System.out.println("숫자만 입력하세요.\n\n");
+										System.out.println("**** 병원 관리 프로그램 ****");
+										System.out.println("1. 로그인");
+										System.out.println("2. 회원등록");
+										System.out.println("0. 종료\n\n");
+										System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+									}
 								}
-								else if(schedule1 == 1) {
+
+								if (schedule1 == 0) {
+									break;
+								} else if (schedule1 == 1) {
 									work.displaySchedule(schedule);
-								}
-								else if (schedule1 == 2) {
-									String name = login.getName(id,list);
-									schedule = work.addWorkSchedule(name,position,list,schedule);
-								}
-								else if (schedule1 == 3) {
-									String name = login.getName(id,list);
-									schedule = work.deleteWorkSchedule(name,position,list,schedule);
-								}
-								else if(schedule1 == 0) {
+								} else if (schedule1 == 2) {
+									String name = login.getName(id, list);
+									schedule = work.addWorkSchedule(name, position, list, schedule);
+								} else if (schedule1 == 3) {
+									String name = login.getName(id, list);
+									schedule = work.deleteWorkSchedule(name, position, list, schedule);
+								} else if (schedule1 == 0) {
 									break;
-								}
-								else{
+								} else {
 									System.out.println("유효하지 않는 입력입니다.");
 								}
 							}
 
-						}
-						else if (num1 == 1) {// 고용관리
+						} else if (num1 == 1) {// 고용관리
 							while (true) {
 								System.out.println("\n\n**** 고용 관리 ****");
 								System.out.println("1. 의사/간호사 추가");
 								System.out.println("2. 의사/간호사 삭제");
 								System.out.println("0. 이전으로 돌아가기\n\n");
 								System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-								num2 = sc.nextInt();
+
+								while (true) {
+									try {
+										num2 = sc.nextInt();
+										break;
+									} catch (InputMismatchException e) {
+										sc = new Scanner(System.in);
+										System.out.println("숫자만 입력하세요.\n\n");
+										System.out.println("**** 병원 관리 프로그램 ****");
+										System.out.println("1. 로그인");
+										System.out.println("2. 회원등록");
+										System.out.println("0. 종료\n\n");
+										System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+									}
+								}
 
 								if (num2 == 1) {
 									System.out.println("\n\n**** 추가하기 ****");
@@ -146,7 +200,22 @@ public class HospitalProgram {
 									System.out.println("2. 간호사 추가");
 									System.out.println("0. 처음으로 돌아가기\n\n");
 									System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-									int num = sc.nextInt();
+									int num = 0;
+									while (true) {
+										try {
+											num = sc.nextInt();
+											break;
+										} catch (InputMismatchException e) {
+											sc = new Scanner(System.in);
+											System.out.println("숫자만 입력하세요.\n\n");
+											System.out.println("**** 병원 관리 프로그램 ****");
+											System.out.println("1. 로그인");
+											System.out.println("2. 회원등록");
+											System.out.println("0. 종료\n\n");
+											System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+										}
+									}
+
 									if (num == 1) {
 										User user = new User(list);
 										System.out.println("이름을 입력해주세요.");
@@ -236,12 +305,27 @@ public class HospitalProgram {
 									System.out.println("2. 간호사 삭제");
 									System.out.println("0. 처음으로 돌아가기\n\n");
 									System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-									int num = sc.nextInt();
+									int num = 0;
+									while (true) {
+										try {
+											num = sc.nextInt();
+											break;
+										} catch (InputMismatchException e) {
+											sc = new Scanner(System.in);
+											System.out.println("숫자만 입력하세요.\n\n");
+											System.out.println("**** 병원 관리 프로그램 ****");
+											System.out.println("1. 로그인");
+											System.out.println("2. 회원등록");
+											System.out.println("0. 종료\n\n");
+											System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+										}
+									}
+
 									if (num == 1) {
 										System.out.println("삭제할 의사의 이름을 입력해 주세요.");
 										User user = new User(list);
 										list = emplmanage.deleteDoctor(sc.next());
-										
+
 									} else if (num == 2) {
 										System.out.println("삭제할 간호사의 이름을 입력해 주세요.");
 										User user = new User(list);
@@ -259,7 +343,21 @@ public class HospitalProgram {
 							System.out.println("2. 회원삭제");
 							System.out.println("0. 이전으로 돌아가기\n\n");
 							System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-							int num = sc.nextInt();
+							int num = 0;
+							while (true) {
+								try {
+									num = sc.nextInt();
+									break;
+								} catch (InputMismatchException e) {
+									sc = new Scanner(System.in);
+									System.out.println("숫자만 입력하세요.\n\n");
+									System.out.println("**** 병원 관리 프로그램 ****");
+									System.out.println("1. 로그인");
+									System.out.println("2. 회원등록");
+									System.out.println("0. 종료\n\n");
+									System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+								}
+							}
 							if (num == 1) {
 								System.out.println("회원등록할 이름을 입력해 주세요.");
 								User user = new User(list);
@@ -272,23 +370,37 @@ public class HospitalProgram {
 							} else {
 								continue;
 							}
-							
-						} else { 
+
+						} else {
 							System.out.println("잘못된 입력입니다. 다시 입력해주세요.\n\n");
 							continue;
 						}
 					}
 
-				} else
-				{
-					while(true) {
+				} else {
+					while (true) {
 						System.out.println("\n\n**** 매니저아님 ****");
 						System.out.println("1. 일정 관리");
 						System.out.println("0. 로그아웃");
 						System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-						int client_num = sc.nextInt();
-						while(client_num == 1) {
-							
+
+						int client_num = 0;
+						while (true) {
+							try {
+								client_num = sc.nextInt();
+								break;
+							} catch (InputMismatchException e) {
+								sc = new Scanner(System.in);
+								System.out.println("숫자만 입력하세요.\n\n");
+								System.out.println("**** 병원 관리 프로그램 ****");
+								System.out.println("1. 로그인");
+								System.out.println("2. 회원등록");
+								System.out.println("0. 종료\n\n");
+								System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+							}
+						}
+						while (client_num == 1) {
+
 							int schedule1 = 0;
 							System.out.println("\n\n****일정 관리****");
 							System.out.println("1. 전체 일정 확인");
@@ -296,44 +408,53 @@ public class HospitalProgram {
 							System.out.println("3. 일정 삭제");
 							System.out.println("0. 뒤로가기");
 							System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
-							schedule1 = sc.nextInt();
-							if(schedule1 == 0) {
+
+							while (true) {
+								try {
+									schedule1 = sc.nextInt();
+									break;
+								} catch (InputMismatchException e) {
+									sc = new Scanner(System.in);
+									System.out.println("숫자만 입력하세요.\n\n");
+									System.out.println("**** 병원 관리 프로그램 ****");
+									System.out.println("1. 로그인");
+									System.out.println("2. 회원등록");
+									System.out.println("0. 종료\n\n");
+									System.out.print("원하는 메뉴의 번호를 입력하세요 : ");
+								}
+							}
+
+							if (schedule1 == 0) {
 								break;
-							}
-							else if(schedule1 == 1) {
+							} else if (schedule1 == 1) {
 								work.displaySchedule(schedule);
-							}
-							else if (schedule1 == 2) {
-								String name = login.getName(id,list);
-								schedule = work.addWorkSchedule(name,position,list,schedule);
-							}
-							else if (schedule1 == 3) {
-								String name = login.getName(id,list);
-								schedule = work.deleteWorkSchedule(name,position,list,schedule);
-							}
-							else {
+							} else if (schedule1 == 2) {
+								String name = login.getName(id, list);
+								schedule = work.addWorkSchedule(name, position, list, schedule);
+							} else if (schedule1 == 3) {
+								String name = login.getName(id, list);
+								schedule = work.deleteWorkSchedule(name, position, list, schedule);
+							} else {
 								System.out.println("유효하지 않는 입력입니다.");
 							}
 						}
-						if(client_num == 0) {
+						if (client_num == 0) {
 							position = "fail";
 							break;
-						}
-						else {
+						} else {
 							continue;
 						}
 					}
 				}
-			}
-			else if(state==2) {
+			} else if (state == 2) {
 				System.out.println("성함을 입력해 주세요.");
 				User user = new User(list);
 				String name = sc.next();
 				list = user.addUser(name);
-			}
-			else if(state==0) {
+			} else if (state == 0) {
+				
 				break;
-			}else {
+			} else {
 				System.out.println("잘못된 입력입니다. 다시 입력해주세요.\n\n");
 				continue;
 			}
