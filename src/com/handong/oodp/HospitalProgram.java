@@ -18,6 +18,7 @@ public class HospitalProgram {
 	public static void main(String[] args) throws IOException {
 
 		Login login = new Login();
+		PatientManage patientManage = new PatientManage();
 		Printer printer = Printer.getPrinter(); //singleton
 		String mainmenu = "**** 병원 관리 프로그램 ****\n1. 로그인\n2. 회원등록\n0. 종료 \n\n";
 		String scanNumber = "원하는 메뉴의 번호를 입력하세요 : ";
@@ -31,6 +32,11 @@ public class HospitalProgram {
 
 		List<List<String>> list = new ArrayList<List<String>>();
 		List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
+		
+		//환자 정보 불러오기
+		List<Patient> patientList = new ArrayList<Patient>();
+		patientList = patientManage.loadPatient();
+		
 
 		BufferedReader bufferedReader = null;
 
@@ -69,11 +75,6 @@ public class HospitalProgram {
 		while (true) {
 			printer.print(mainmenu);
 			printer.print(scanNumber);
-//			printer.println("**** 병원 관리 프로그램 ****");
-//			printer.println("1. 로그인");
-//			printer.println("2. 회원등록");
-//			printer.println("0. 종료\n\n");
-//			printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 
 			int state = 0;
 			while (true) {
@@ -85,11 +86,6 @@ public class HospitalProgram {
 					printer.print(inputOnlyNumber);
 					printer.print(mainmenu);
 					printer.print(scanNumber);
-//					printer.println("**** 병원 관리 프로그램 ****");
-//					printer.println("1. 로그인");
-//					printer.println("2. 회원등록");
-//					printer.println("0. 종료\n\n");
-//					printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 				}
 			}
 
@@ -114,7 +110,6 @@ public class HospitalProgram {
 						printer.println("3. 일정관리");
 						printer.println("0. 로그아웃\n\n");
 						printer.print(scanNumber);
-						//printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 
 						while (true) {
 							try {
@@ -123,13 +118,12 @@ public class HospitalProgram {
 							} catch (InputMismatchException e) {
 								sc = new Scanner(System.in);
 								printer.print(inputOnlyNumber);
-								printer.print(mainmenu);
+								printer.println("**** 병원 관리 프로그램 ****");
+								printer.println("1. 고용관리");
+								printer.println("2. 계정관리");
+								printer.println("3. 일정관리");
+								printer.println("0. 로그아웃\n\n");
 								printer.print(scanNumber);
-//								printer.println("**** 병원 관리 프로그램 ****");
-//								printer.println("1. 로그인");
-//								printer.println("2. 회원등록");
-//								printer.println("0. 종료\n\n");
-//								printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 							}
 						}
 
@@ -155,13 +149,13 @@ public class HospitalProgram {
 									} catch (InputMismatchException e) {
 										sc = new Scanner(System.in);
 										printer.print(inputOnlyNumber);
-										printer.print(mainmenu);
-										printer.print(scanNumber);
-//										printer.println("**** 병원 관리 프로그램 ****");
-//										printer.println("1. 로그인");
-//										printer.println("2. 회원등록");
-//										printer.println("0. 종료\n\n");
-//										printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+
+										printer.println("\n\n****일정 관리****");
+										printer.println("1. 전체 일정 확인");
+										printer.println("2. 일정 추가");
+										printer.println("3. 일정 삭제");
+										printer.println("0. 이전으로 돌아가기");
+										printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 									}
 								}
 
@@ -219,13 +213,12 @@ public class HospitalProgram {
 										} catch (InputMismatchException e) {
 											sc = new Scanner(System.in);
 											printer.print(inputOnlyNumber);
-											printer.print(mainmenu);
-											printer.print(scanNumber);
-//											printer.println("**** 병원 관리 프로그램 ****");
-//											printer.println("1. 로그인");
-//											printer.println("2. 회원등록");
-//											printer.println("0. 종료\n\n");
-//											printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+
+											printer.println("\n\n**** 추가하기 ****");
+											printer.println("1. 의사 추가");
+											printer.println("2. 간호사 추가");
+											printer.println("0. 처음으로 돌아가기\n\n");
+											printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 										}
 									}
 
@@ -326,13 +319,12 @@ public class HospitalProgram {
 										} catch (InputMismatchException e) {
 											sc = new Scanner(System.in);
 											printer.print(inputOnlyNumber);
-											printer.print(mainmenu);
-											printer.print(scanNumber);
-//											printer.println("**** 병원 관리 프로그램 ****");
-//											printer.println("1. 로그인");
-//											printer.println("2. 회원등록");
-//											printer.println("0. 종료\n\n");
-//											printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+
+											printer.println("\n\n**** 삭제하기 ****");
+											printer.println("1. 의사 삭제");
+											printer.println("2. 간호사 삭제");
+											printer.println("0. 처음으로 돌아가기\n\n");
+											printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 										}
 									}
 
@@ -366,13 +358,11 @@ public class HospitalProgram {
 								} catch (InputMismatchException e) {
 									sc = new Scanner(System.in);
 									printer.print(inputOnlyNumber);
-									printer.print(mainmenu);
-									printer.print(scanNumber);
-//									printer.println("**** 병원 관리 프로그램 ****");
-//									printer.println("1. 로그인");
-//									printer.println("2. 회원등록");
-//									printer.println("0. 종료\n\n");
-//									printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+									printer.println("\n\n**** 계정관리 ****");
+									printer.println("1. 회원등록");
+									printer.println("2. 회원삭제");
+									printer.println("0. 이전으로 돌아가기\n\n");
+									printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 								}
 							}
 							if (num == 1) {
@@ -398,6 +388,7 @@ public class HospitalProgram {
 					while (true) {
 						printer.println("\n\n**** 매니저아님 ****");
 						printer.println("1. 일정 관리");
+						printer.println("2. 환자관리");
 						printer.println("0. 로그아웃");
 						printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 
@@ -409,13 +400,11 @@ public class HospitalProgram {
 							} catch (InputMismatchException e) {
 								sc = new Scanner(System.in);
 								printer.print(inputOnlyNumber);
-								printer.print(mainmenu);
-								printer.print(scanNumber);
-//								printer.println("**** 병원 관리 프로그램 ****");
-//								printer.println("1. 로그인");
-//								printer.println("2. 회원등록");
-//								printer.println("0. 종료\n\n");
-//								printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+								printer.println("\n\n**** 매니저아님 ****");
+								printer.println("1. 일정 관리");
+								printer.println("2. 환자관리");
+								printer.println("0. 로그아웃");
+								printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 							}
 						}
 						while (client_num == 1) {
@@ -435,13 +424,13 @@ public class HospitalProgram {
 								} catch (InputMismatchException e) {
 									sc = new Scanner(System.in);
 									printer.print(inputOnlyNumber);
-									printer.print(mainmenu);
-									printer.print(scanNumber);
-//									printer.println("**** 병원 관리 프로그램 ****");
-//									printer.println("1. 로그인");
-//									printer.println("2. 회원등록");
-//									printer.println("0. 종료\n\n");
-//									printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+
+									printer.println("\n\n****일정 관리****");
+									printer.println("1. 전체 일정 확인");
+									printer.println("2. 일정 추가");
+									printer.println("3. 일정 삭제");
+									printer.println("0. 뒤로가기");
+									printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 								}
 							}
 
@@ -458,6 +447,49 @@ public class HospitalProgram {
 							} else {
 								printer.println("유효하지 않는 입력입니다.");
 							}
+						}
+						while(client_num == 2) {
+							int patient1 = 0;
+							printer.println("\n\n****환자 관리****");
+							printer.println("1. 전체 환자 확인");
+							printer.println("2. 환자 추가");
+							printer.println("3. 환자 삭제");
+							printer.println("0. 뒤로가기");
+							printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+							
+							
+							while (true) {
+								try {
+									patient1 = sc.nextInt();
+									break;
+								} catch (InputMismatchException e) {
+									sc = new Scanner(System.in);
+									printer.print(inputOnlyNumber);
+									printer.println("\n\n****환자 관리****");
+									printer.println("1. 전체 환자 확인");
+									printer.println("2. 환자 추가");
+									printer.println("3. 환자 삭제");
+									printer.println("0. 뒤로가기");
+									printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+								}
+							}
+							
+							if (patient1 == 0) {
+								break;
+							}
+							else if (patient1 == 1) {
+								patientManage.displayPatientList(patientList);
+							} 
+							else if (patient1 == 2) {
+								patientList = patientManage.addPatient(patientList);
+							} 
+							else if (patient1 == 3) {
+								patientList = patientManage.removePatient(patientList);
+							}
+							else {
+								printer.println("유효하지 않는 입력입니다.");
+							}
+							
 						}
 						if (client_num == 0) {
 							position = "fail";

@@ -36,12 +36,6 @@ public class Work {
             }
             schedule.add(weektime_);
          }
-//         for(int i = 0; i<schedule.size();i++)
-//            for(int j = 0; j<schedule.get(i).size();j++) {
-//               for(int k = 0;k <schedule.get(i).get(j).size(); k++)
-//                  printer.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
-//               printer.println();
-//            }
       } catch (IOException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -93,7 +87,6 @@ public class Work {
          }
          printer.println("");
       }
-      
    }
    
    public List<List<List<String>>> deleteWorkSchedule(String user, String position, List<List<String>> list,List<List<List<String>>> schedule) {
