@@ -18,6 +18,7 @@ public class Work {
    
    
    public List<List<List<String>>> loadWorkSchedule(List<List<List<String>>> schedule) {
+	   Printer printer = Printer.getPrinter(); //singleton
       try {
          BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/applySchedule.csv"));
          String line = "";
@@ -38,8 +39,8 @@ public class Work {
 //         for(int i = 0; i<schedule.size();i++)
 //            for(int j = 0; j<schedule.get(i).size();j++) {
 //               for(int k = 0;k <schedule.get(i).get(j).size(); k++)
-//                  System.out.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
-//               System.out.println();
+//                  printer.print( Integer.toString(i) + Integer.toString(j) + schedule.get(i).get(j).get(k)+"|");
+//               printer.println();
 //            }
       } catch (IOException e) {
          // TODO Auto-generated catch block
@@ -49,6 +50,7 @@ public class Work {
    }
    
    public void updateWorkSchedule(List<List<List<String>>> schedule) {
+	   Printer printer = Printer.getPrinter(); //singleton
       String filePath = "./data/applySchedule.csv";
       String NEWLINE = System.lineSeparator();
       try {
@@ -75,10 +77,11 @@ public class Work {
    
    
    public void displaySchedule(List<List<List<String>>> schedule) {
-      System.out.println("\n\n****전체 일정****");
-      System.out.println("   월      화      수      목      금      토      일");
+	  Printer printer = Printer.getPrinter(); //singleton
+      printer.println("\n\n****전체 일정****");
+      printer.println("   월      화      수      목      금      토      일");
       for(int i = 0; i<schedule.size();i++) {
-         System.out.print(Integer.toString(i+1)); 
+         printer.print(Integer.toString(i+1)); 
          for(int j = 0; j<schedule.get(i).size();j++) {
             String temp = "";
             for(int k = 0;k <schedule.get(i).get(j).size(); k++) {
@@ -86,19 +89,20 @@ public class Work {
                   temp+=(schedule.get(i).get(j).get(k));
                else temp+=(","+schedule.get(i).get(j).get(k));
             }
-            System.out.print(temp+"|   ");
+            printer.print(temp+"|   ");
          }
-         System.out.println();
+         printer.println("");
       }
       
    }
    
    public List<List<List<String>>> deleteWorkSchedule(String user, String position, List<List<String>> list,List<List<List<String>>> schedule) {
-      Scanner sc = new Scanner(System.in);
+	   Printer printer = Printer.getPrinter(); //singleton
+	   Scanner sc = new Scanner(System.in);
       int i=0,j=0;
       //display
       if (position.equals("manager")) {
-         System.out.println("삭제하고 싶은 스케줄의 유저를 입력하세요 (예시.홍길동)");
+         printer.println("삭제하고 싶은 스케줄의 유저를 입력하세요 (예시.홍길동)");
          String crew_name = sc.next();
          boolean isNoName = true;
          for (List<String> item : list) {
@@ -107,13 +111,13 @@ public class Work {
             }
          }
          if(isNoName) {
-            System.out.println("존재하지 않는 유저입니다.");
+            printer.println("존재하지 않는 유저입니다.");
             return schedule;
          }
          else {
-            System.out.println("원하는 삭제 시간을 입력하세요(예시. 월1).");
+            printer.println("원하는 삭제 시간을 입력하세요(예시. 월1).");
             String time = sc.next();
-            System.out.println(time);
+            printer.println(time);
 
             if (time.charAt(0)=='월')
                i=0;
@@ -130,7 +134,7 @@ public class Work {
             else if (time.charAt(0)=='일')
                i=6;
             else {
-               System.out.println("유효하지 않는 입력입니다.");
+               printer.println("유효하지 않는 입력입니다.");
                return schedule;
             }
                
@@ -141,7 +145,7 @@ public class Work {
             else if (time.charAt(1)=='3')
                j=2;
             else {
-               System.out.println("유효하지 않는 입력입니다.");
+               printer.println("유효하지 않는 입력입니다.");
                return schedule;
             }
             
@@ -149,13 +153,13 @@ public class Work {
             Boolean flag = true;
             for(int k = 0;k <schedule.get(j).get(i).size(); k++) {
                if(crew_name.equals(schedule.get(j).get(i).get(k))) {
-            	  System.out.println(schedule.get(j).get(i).get(k));
+            	  printer.println(schedule.get(j).get(i).get(k));
                   flag = false;
                   break;
                }
             }
             if(flag) {
-               System.out.println("유효하지 않는 입력입니다.");
+               printer.println("유효하지 않는 입력입니다.");
                return schedule;
             }
             else {
@@ -185,14 +189,14 @@ public class Work {
                   }
                   week.set(i, Arrays.asList(new_list));
                   schedule.set(j, week);
-               System.out.println("삭제되었습니다.");
+               printer.println("삭제되었습니다.");
             }
          }
       }
       else {
-         System.out.println("원하는 삭제 시간을 입력하세요(예시. 월1).");
+         printer.println("원하는 삭제 시간을 입력하세요(예시. 월1).");
          String time = sc.next();
-         System.out.println(time);
+         printer.println(time);
 
          if (time.charAt(0)=='월')
             i=0;
@@ -209,7 +213,7 @@ public class Work {
          else if (time.charAt(0)=='일')
             i=6;
          else {
-            System.out.println("유효하지 않는 입력입니다.");
+            printer.println("유효하지 않는 입력입니다.");
             return schedule;
          }
          
@@ -220,19 +224,19 @@ public class Work {
          else if (time.charAt(1)=='3')
             j=2;
          else {
-            System.out.println("유효하지 않는 입력입니다.");
+            printer.println("유효하지 않는 입력입니다.");
             return schedule;
          }
          Boolean flag = true;
          for(int k = 0;k <schedule.get(j).get(i).size(); k++) {
              if(user.equals(schedule.get(j).get(i).get(k))) {
-                 System.out.println("유효하지 않는 입력입니다.");
+                 printer.println("유효하지 않는 입력입니다.");
                 flag = false;
                 break;
              }
           }
          if(flag) {
-            System.out.println("유효하지 않는 입력입니다.");
+            printer.println("유효하지 않는 입력입니다.");
             return schedule;
          }
          else {
@@ -262,7 +266,7 @@ public class Work {
                }
               week.set(i, Arrays.asList(new_list));
               schedule.set(j, week);
-            System.out.println("삭제되었습니다.");
+            printer.println("삭제되었습니다.");
          }
       }
       updateWorkSchedule(schedule);
@@ -270,10 +274,11 @@ public class Work {
    }
    
    public List<List<List<String>>> addWorkSchedule(String user, String position, List<List<String>> list,List<List<List<String>>> schedule) {
-      Scanner sc = new Scanner(System.in);
+	   Printer printer = Printer.getPrinter(); //singleton
+	   Scanner sc = new Scanner(System.in);
       int i=0,j=0;
       if (position.equals("manager")) {
-            System.out.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
+            printer.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
             String crew_name = sc.next();
             boolean isNoName = true;
             for (List<String> item : list) {
@@ -282,13 +287,13 @@ public class Work {
                }
             }
             if(isNoName) {
-               System.out.println("존재하지 않는 유저입니다.");
+               printer.println("존재하지 않는 유저입니다.");
                return schedule;
             }
             else {
-               System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
+               printer.println("원하는 추가 시간을 입력하세요(예시. 월1).");
                String time = sc.next();
-               System.out.println(time);
+               printer.println(time);
                if (time.charAt(0)=='월')
                   i=0;
                else if (time.charAt(0)=='화')
@@ -304,7 +309,7 @@ public class Work {
                else if (time.charAt(0)=='일')
                   i=6;
                else {
-                  System.out.println("유효하지 않는 입력입니다.");
+                  printer.println("유효하지 않는 입력입니다.");
                   return schedule;
                }
                
@@ -315,7 +320,7 @@ public class Work {
                else if (time.charAt(1)=='3')
                   j=2;
                else {
-                  System.out.println("유효하지 않는 입력입니다.");
+                  printer.println("유효하지 않는 입력입니다.");
                   return schedule;
                }
                
@@ -329,9 +334,9 @@ public class Work {
             }
       }
       else {         
-         System.out.println("원하는 추가 시간을 입력하세요(예시. 월1).");
+         printer.println("원하는 추가 시간을 입력하세요(예시. 월1).");
          String time = sc.next();
-         System.out.println(time);
+         printer.println(time);
          if (time.charAt(0)=='월')
             i=0;
          else if (time.charAt(0)=='화')
@@ -347,7 +352,7 @@ public class Work {
          else if (time.charAt(0)=='일')
             i=6;
          else {
-            System.out.println("유효하지 않는 입력입니다.");
+            printer.println("유효하지 않는 입력입니다.");
             return schedule;
          }
          
@@ -358,7 +363,7 @@ public class Work {
          else if (time.charAt(1)=='3')
             j=2;
          else {
-            System.out.println("유효하지 않는 입력입니다.");
+            printer.println("유효하지 않는 입력입니다.");
             return schedule;
          }
          
@@ -371,7 +376,7 @@ public class Work {
             schedule.set(j, week);
       }//not manager
       updateWorkSchedule(schedule);
-      System.out.println("추가되었습니다.");
+      printer.println("추가되었습니다.");
       return schedule;
    }
 }

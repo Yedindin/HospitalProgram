@@ -4,10 +4,11 @@ import java.util.List;
 public class Login {
 	
 	public String login(String ID, String PW,List<List<String>> list) {
+		Printer printer = Printer.getPrinter(); //singleton
 		for (List<String> item : list) {
 			if(ID.equals( item.get(1)) && PW.equals( item.get(2)))
 			{
-				System.out.println("로그인에 성공하셨습니다.");
+				printer.println("로그인에 성공하셨습니다.");
 				return item.get(4);
 			}
 		}
@@ -25,7 +26,8 @@ public class Login {
 	}
 	
 	public void logout() {
-		System.out.println("로그아웃");
+		Printer printer = Printer.getPrinter(); //singleton
+		printer.println("로그아웃");
 	}
 
 }
