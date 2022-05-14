@@ -77,6 +77,63 @@ public class User {
 		}
 		printer.println("등록 대상이 아닙니다.");
 		return list;
+	}
+		
+		public List<List<String>> editUser(String name) throws IOException {
+			Scanner sc = new Scanner(System.in);
+			BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
+			Printer printer = Printer.getPrinter(); //singleton
+			for (List<String> item : list ) {
+				if(item.contains(name))
+				{
+					printer.println("ID : " + item.get(1));
+					printer.println("PW : " + item.get(2));
+					printer.println("수정할 ID를 입력하세요.");
+					this.ID = sc.next();
+					printer.println("수정할 패스워드를 입력하세요.");
+					this.PW = sc.next();
+					printer.println("회원정보수정이 완료되었습니다.");
+					item.set(0, item.get(0));
+					item.set(1, this.ID);
+					item.set(2, this.PW);
+					item.set(3, item.get(3));
+					item.set(4, item.get(4));
+					item.set(5, item.get(5));
+					
+					try {
+
+						StringBuffer data = new StringBuffer();
+						Charset.forName("UTF-8");
+						for (List<String> item2 : list) {
+							data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
+									+ item2.get(4) + "," + item2.get(5) + "\n");
+						}
+						FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
+						outputStream.write(data.toString().getBytes());
+						outputStream.close();
+
+						printer.println("저장완료");
+
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} finally {
+						try {
+							if (br != null) {
+								br.close();
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+
+						}
+					}
+					printer.println(name + "user 수정 완료");
+					return list;
+				}
+			}
+			printer.println("존재하지 않는 회원입니다.");
+			return list;
 
 //		List<String> data = new ArrayList<>();
 //		data.add(0,name);
