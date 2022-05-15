@@ -1,4 +1,4 @@
-package com.handong.oodp;
+package com.handong.oodp.Adapter;
 
 public class Title {
 	private String string;
