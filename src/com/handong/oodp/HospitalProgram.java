@@ -34,7 +34,8 @@ public class HospitalProgram {
 		PatientManage patientManage = new PatientManage();
 		Work work = new Work();
 		Printer printer = Printer.getPrinter(); // singleton
-		String mainmenu = "**** 병원 관리 프로그램 ****\n1. 로그인\n2. 회원등록\n0. 종료 \n\n";
+		Print p = new TitlePrint("병원 관리 프로그램");
+		String mainmenu = "1. 로그인\n2. 회원등록\n0. 종료 \n\n";
 		String scanNumber = "원하는 메뉴의 번호를 입력하세요 : ";
 		String inputOnlyNumber = "숫자만 입력하세요.\n\n";
 		Scanner sc = new Scanner(System.in);
@@ -101,6 +102,7 @@ public class HospitalProgram {
 		 * item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
 		 */
 		while (true) {
+			p.printTitle();
 			printer.print(mainmenu);
 			printer.print(scanNumber);
 
@@ -112,6 +114,7 @@ public class HospitalProgram {
 				} catch (InputMismatchException e) {
 					sc = new Scanner(System.in);
 					printer.print(inputOnlyNumber);
+					p.printTitle();
 					printer.print(mainmenu);
 					printer.print(scanNumber);
 				}
@@ -382,7 +385,8 @@ public class HospitalProgram {
 						} else if (num1 == 2) {// 계정관리
 							printer.println("\n\n**** 계정관리 ****");
 							printer.println("1. 회원등록");
-							printer.println("2. 회원삭제");
+							printer.println("2. 회원수정");
+							printer.println("3. 회원삭제");
 							printer.println("0. 이전으로 돌아가기\n\n");
 							printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 							int num = 0;
@@ -395,7 +399,8 @@ public class HospitalProgram {
 									printer.print(inputOnlyNumber);
 									printer.println("\n\n**** 계정관리 ****");
 									printer.println("1. 회원등록");
-									printer.println("2. 회원삭제");
+									printer.println("2. 회원수정");
+									printer.println("3. 회원삭제");
 									printer.println("0. 이전으로 돌아가기\n\n");
 									printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 								}
@@ -408,6 +413,10 @@ public class HospitalProgram {
 								userlist = user.appendUser(u);
 								continue;
 							} else if (num == 2) {
+								printer.println("수정할 회원의 이름을 입력해 주세요.");
+								User user = new User(list);
+								list = user.editUser(sc.next());
+							} else if (num == 3) {
 								printer.println("삭제할 회원의 이름을 입력해 주세요.");
 								UserList user = new UserList(userlist);
 								User u = new User();
