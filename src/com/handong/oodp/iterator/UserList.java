@@ -111,6 +111,34 @@ public class UserList implements Aggregate{
 		return userlist;
 
 	}
+	public List<User> editUser(String name) throws IOException {
+		Scanner sc = new Scanner(System.in);
+		Printer printer = Printer.getPrinter(); //singleton
+		File userfile = new UserFile("userfile");
+		userfile.setSavestrategy(new UserSave());
+		for (User user1 : userlist) {
+			if(user1.getName().equals(name)) {
+				printer.println("변경할 ID를 입력하세요.");
+				user1.setID(sc.next());
+				printer.println("변경할 패스워드를 입력하세요.");
+				user1.setPW(sc.next());
+				printer.println("회원정보 변경이 완료되었습니다.");
+				user1.setName(user1.getName());
+				user1.setID(user1.getID());
+				user1.setPW(user1.getPW());
+				user1.setDepartment(user1.getDepartment());
+				user1.setPosition(user1.getPosition());
+				user1.setAge(user1.getAge());
+				
+				userfile.save(userlist);
+				//fileinout.saveFile(userlist);
+				return userlist;
+			}
+		}
+
+		printer.println("존재하지 않는 회원입니다.");
+		return userlist;
+	}
 	public int getLength() {
 		return userlist.size();
 	}

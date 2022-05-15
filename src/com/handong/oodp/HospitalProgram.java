@@ -414,8 +414,8 @@ public class HospitalProgram {
 								continue;
 							} else if (num == 2) {
 								printer.println("수정할 회원의 이름을 입력해 주세요.");
-								User user = new User(list);
-								list = user.editUser(sc.next());
+								UserList ul = new UserList(userlist);
+								userlist = ul.editUser(sc.next());
 							} else if (num == 3) {
 								printer.println("삭제할 회원의 이름을 입력해 주세요.");
 								UserList user = new UserList(userlist);
