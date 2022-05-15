@@ -20,7 +20,8 @@ public class HospitalProgram {
 		Login login = new Login();
 		PatientManage patientManage = new PatientManage();
 		Printer printer = Printer.getPrinter(); //singleton
-		String mainmenu = "**** 병원 관리 프로그램 ****\n1. 로그인\n2. 회원등록\n0. 종료 \n\n";
+		Print p = new TitlePrint("병원 관리 프로그램");
+		String mainmenu = "1. 로그인\n2. 회원등록\n0. 종료 \n\n";
 		String scanNumber = "원하는 메뉴의 번호를 입력하세요 : ";
 		String inputOnlyNumber = "숫자만 입력하세요.\n\n";
 		Scanner sc = new Scanner(System.in);
@@ -73,6 +74,7 @@ public class HospitalProgram {
 		 * "and" + item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
 		 */
 		while (true) {
+			p.printTitle();
 			printer.print(mainmenu);
 			printer.print(scanNumber);
 
@@ -84,6 +86,7 @@ public class HospitalProgram {
 				} catch (InputMismatchException e) {
 					sc = new Scanner(System.in);
 					printer.print(inputOnlyNumber);
+					p.printTitle();
 					printer.print(mainmenu);
 					printer.print(scanNumber);
 				}
@@ -245,7 +248,7 @@ public class HospitalProgram {
 											FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
 											outputStream.write(data.toString().getBytes());
 											outputStream.close();
-
+											
 											printer.println("저장완료");
 
 										} catch (FileNotFoundException e) {
