@@ -1,25 +1,27 @@
 package com.handong.oodp;
 import java.util.List;
 
+import com.handong.oodp.iterator.User;
+
 public class Login {
 	
-	public String login(String ID, String PW,List<List<String>> list) {
+	public String login(String ID, String PW,List<User> list) {
 		Printer printer = Printer.getPrinter(); //singleton
-		for (List<String> item : list) {
-			if(ID.equals( item.get(1)) && PW.equals( item.get(2)))
+		for (User item : list) {
+			if(ID.equals( item.getID()) && PW.equals( item.getPW()))
 			{
 				printer.println("로그인에 성공하셨습니다.");
-				return item.get(4);
+				return item.getPosition();
 			}
 		}
 		return "fail";
 		
 	}
-	public String getName(String ID,List<List<String>> list) {
-		for (List<String> item : list) {
-			if(ID.equals( item.get(1)))
+	public String getName(String ID,List<User> list) {
+		for (User item : list) {
+			if(ID.equals( item.getID()))
 			{
-				return item.get(0);
+				return item.getName();
 			}
 		}
 		return "fail";
