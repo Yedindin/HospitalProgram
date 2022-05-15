@@ -1,18 +1,7 @@
 package com.handong.oodp.iterator;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import com.handong.oodp.FileINnOUT;
-import com.handong.oodp.Printer;
 
 public class User {
 
@@ -125,19 +114,21 @@ public class User {
 //	public void editUser(User user) {
 //		printer.println("user 수정 완료");
 //	}
-	public List<User> deleteUser(String name) throws IOException {
-		FileINnOUT fileinout = new FileINnOUT();
-		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
-		Printer printer = Printer.getPrinter(); //singleton
-		int index = 0;
-		for (List<String> item : list ) {
-			if(item.contains(name))
-			{
-				//printer.println(list.get(index));
-				userlist.remove(index);
-				
-				printer.println("user 삭제 완료");
-				fileinout.saveFile(userlist);
+//	public List<User> deleteUser(String name) throws IOException {
+//		//FileINnOUT fileinout = new FileINnOUT();
+//		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
+//		Printer printer = Printer.getPrinter(); //singleton
+//		File userfile = new UserFile("userfile");
+//		userfile.setSavestrategy(new UserSave());
+//		int index = 0;
+//		for (List<String> item : list ) {
+//			if(item.contains(name))
+//			{
+//				//printer.println(list.get(index));
+//				userlist.remove(index);
+//				userfile.save(userlist);
+//				printer.println("user 삭제 완료");
+//				//fileinout.saveFile(userlist);
 
 //				try {
 //
@@ -167,14 +158,14 @@ public class User {
 //
 //					}
 //				}
-				return userlist;
-			}
-			index++;
-		}
-		printer.println("존재하지 않는 회원입니다.");
-		return userlist;
-
-	}
+//				return userlist;
+//			}
+//			index++;
+//		}
+//		printer.println("존재하지 않는 회원입니다.");
+//		return userlist;
+//
+//	}
 
 	@Override
 	public String toString() {
