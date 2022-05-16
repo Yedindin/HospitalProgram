@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+import com.handong.oodp.Singleton.Printer;
+
 public class User {
 
 	private String name;

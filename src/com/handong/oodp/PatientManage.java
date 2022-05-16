@@ -14,6 +14,9 @@ import com.handong.oodp.file.File;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.save.PatientSave;
 
+
+import com.handong.oodp.Singleton.Printer;
+
 public class PatientManage {
 
 //	public List<Patient> loadPatient() {

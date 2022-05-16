@@ -6,6 +6,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+
+import com.handong.oodp.Singleton.Printer;
+
 import com.handong.oodp.Adapter.Print;
 import com.handong.oodp.Adapter.TitlePrint;
 import com.handong.oodp.file.File;

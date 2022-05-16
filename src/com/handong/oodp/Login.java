@@ -3,6 +3,9 @@ import java.util.List;
 
 import com.handong.oodp.iterator.User;
 
+
+import com.handong.oodp.Singleton.Printer;
+
 public class Login {
 	
 	public String login(String ID, String PW,List<User> list) {

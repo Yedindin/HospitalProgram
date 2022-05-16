@@ -17,6 +17,9 @@ import com.handong.oodp.file.ScheduleFile;
 import com.handong.oodp.file.save.ScheduleSave;
 import com.handong.oodp.iterator.User;
 
+
+import com.handong.oodp.Singleton.Printer;
+
 public class Work {
 
 	private List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
