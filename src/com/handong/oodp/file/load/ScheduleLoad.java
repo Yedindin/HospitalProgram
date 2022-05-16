@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.handong.oodp.Printer;
+import com.handong.oodp.Singleton.Printer;
 
 public class ScheduleLoad implements LoadStrategy{
 

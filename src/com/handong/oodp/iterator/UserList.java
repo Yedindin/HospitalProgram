@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.handong.oodp.Printer;
+import com.handong.oodp.Singleton.Printer;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.UserFile;
 import com.handong.oodp.file.save.UserSave;

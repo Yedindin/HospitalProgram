@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.List;
 
 import com.handong.oodp.Patient;
-import com.handong.oodp.Printer;
+
+import com.handong.oodp.Singleton.Printer;
 
 public class PatientSave implements SaveStrategy {
 

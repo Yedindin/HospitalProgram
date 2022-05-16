@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import com.handong.oodp.Printer;
+import com.handong.oodp.Singleton.Printer;
 import com.handong.oodp.iterator.User;
 
 public class UserSave implements SaveStrategy{

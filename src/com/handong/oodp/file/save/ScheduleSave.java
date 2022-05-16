@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import com.handong.oodp.Printer;
+import com.handong.oodp.Singleton.Printer;
 
 public class ScheduleSave implements SaveStrategy {
 
