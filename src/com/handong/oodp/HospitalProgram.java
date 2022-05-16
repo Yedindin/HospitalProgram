@@ -187,7 +187,39 @@ public class HospitalProgram {
 								}
 							}
 
-						} else if (num1 == 1) {// 고용관리
+						}
+						else if(num1 == 5) {
+							while (true) {
+								int patient1 = 0;
+								printer.print(Menu.Patient);
+
+								while (true) {
+									try {
+										patient1 = sc.nextInt();
+										break;
+									} catch (InputMismatchException e) {
+										sc = new Scanner(System.in);
+										printer.print(Menu.Number);
+										printer.print(Menu.Patient);
+									}
+								}
+
+								if (patient1 == 0) {
+									break;
+								} else if (patient1 == 1) {
+									patientManage.displayPatientList(patientList);
+								} else if (patient1 == 2) {
+									patientList = patientManage.addPatient(patientList);
+								} else if (patient1 == 3) {
+									patientList = patientManage.removePatient(patientList);
+								} else {
+									printer.println("유효하지 않는 입력입니다.");
+								}
+
+							}
+						}
+						
+						else if (num1 == 1) {// 고용관리
 							while (true) {
 								printer.print(Menu.Employment);
 
