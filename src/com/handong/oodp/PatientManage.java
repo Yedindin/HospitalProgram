@@ -81,7 +81,7 @@ public class PatientManage {
 		File patientfile = new PatientFile("patientfile");
 		patientfile.setSavestrategy(new PatientSave());
 		printer.println("환자 이름을 입력하세요. :");
-		String name = sc.next();
+		String name = sc.nextLine();
 		int age = 0;
 		while (true) {
 			try {
@@ -118,7 +118,7 @@ public class PatientManage {
 			break;
 		}
 		printer.println("환자 상세정보를 입력하세요. :");
-		String detail = sc.next();
+		String detail = sc.nextLine();
 		patientList.add(new Patient(name, age, RegistrationNumber, detail));
 		patientfile.save(patientList);
 		//updatePatientList(patientList);
