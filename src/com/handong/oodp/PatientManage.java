@@ -118,6 +118,7 @@ public class PatientManage {
 			break;
 		}
 		printer.println("환자 상세정보를 입력하세요. :");
+		sc.nextLine();
 		String detail = sc.nextLine();
 		patientList.add(new Patient(name, age, RegistrationNumber, detail));
 		patientfile.save(patientList);
