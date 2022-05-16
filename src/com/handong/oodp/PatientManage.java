@@ -16,23 +16,23 @@ import com.handong.oodp.file.save.PatientSave;
 
 public class PatientManage {
 
-	public List<Patient> loadPatient() {
-		List<Patient> patientList = new ArrayList<Patient>();
-		try {
-			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/Patient.csv"));
-			String line = "";
-			int row_count = 0;
-			while ((line = bufferedReader.readLine()) != null) {
-				String[] patient_1 = line.split(",");
-				Patient temp = new Patient(patient_1[0], Integer.parseInt(patient_1[1]), patient_1[2], patient_1[3]);
-				patientList.add(temp);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return patientList;
-	}
+//	public List<Patient> loadPatient() {
+//		List<Patient> patientList = new ArrayList<Patient>();
+//		try {
+//			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/Patient.csv"));
+//			String line = "";
+//			int row_count = 0;
+//			while ((line = bufferedReader.readLine()) != null) {
+//				String[] patient_1 = line.split(",");
+//				Patient temp = new Patient(patient_1[0], Integer.parseInt(patient_1[1]), patient_1[2], patient_1[3]);
+//				patientList.add(temp);
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return patientList;
+//	}
 
 	public List<Patient> removePatient(List<Patient> patientList) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
