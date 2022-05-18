@@ -1,11 +1,6 @@
 package com.handong.oodp;
 
-import java.io.BufferedReader;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -13,29 +8,9 @@ import java.util.Scanner;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.save.PatientSave;
-
-
 import com.handong.oodp.Singleton.Printer;
 
 public class PatientManage {
-
-//	public List<Patient> loadPatient() {
-//		List<Patient> patientList = new ArrayList<Patient>();
-//		try {
-//			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/Patient.csv"));
-//			String line = "";
-//			int row_count = 0;
-//			while ((line = bufferedReader.readLine()) != null) {
-//				String[] patient_1 = line.split(",");
-//				Patient temp = new Patient(patient_1[0], Integer.parseInt(patient_1[1]), patient_1[2], patient_1[3]);
-//				patientList.add(temp);
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return patientList;
-//	}
 
 	public List<Patient> removePatient(List<Patient> patientList) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
@@ -65,7 +40,6 @@ public class PatientManage {
 			if (flag) {
 				patientList.remove(index);
 				patientfile.save(patientList);
-				// updatePatientList(patientList);
 				printer.println("삭제되었습니다.");
 			} else {
 				printer.println("존재하지 않는 환자입니다.");
@@ -122,7 +96,6 @@ public class PatientManage {
 		String detail = sc.nextLine();
 		patientList.add(new Patient(name, age, RegistrationNumber, detail));
 		patientfile.save(patientList);
-		//updatePatientList(patientList);
 		printer.println("추가되었습니다.");
 		return patientList;
 	}
@@ -137,24 +110,4 @@ public class PatientManage {
 			printer.println("상세정보 : " + i.getDetail() + " ");
 		}
 	}
-
-//	   public void updatePatientList(List<Patient> patientList) {
-//		  Printer printer = Printer.getPrinter(); //singleton
-//	      String filePath = "./data/Patient.csv";
-//	      String NEWLINE = System.lineSeparator();
-//	      try {
-//	         File file = new File(filePath);
-//	         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-//	         for(Patient i : patientList) {
-//	        	 String temp = i.getName()+","+Integer.toString(i.getAge())+","+
-//	         i.getRegistrationNumber()+","+i.getDetail()+NEWLINE;
-//	        	 bw.write(temp);
-//	         }
-//	         bw.flush();
-//	         bw.close();
-//	      } catch (IOException e) {
-//	         // TODO Auto-generated catch block
-//	         e.printStackTrace();
-//	      }
-//	   }
 }

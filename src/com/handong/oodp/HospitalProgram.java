@@ -1,14 +1,11 @@
 package com.handong.oodp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-
 import com.handong.oodp.Singleton.Printer;
-
 import com.handong.oodp.Adapter.Print;
 import com.handong.oodp.Adapter.TitlePrint;
 import com.handong.oodp.file.File;
@@ -23,84 +20,43 @@ import com.handong.oodp.iterator.Iterator;
 import com.handong.oodp.iterator.User;
 import com.handong.oodp.iterator.UserList;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 
 public class HospitalProgram {
 
 	public static void main(String[] args) throws IOException {
-		//FileINnOUT fileinout = new FileINnOUT();
 		Login login = new Login();
 		PatientManage patientManage = new PatientManage();
 		Work work = new Work();
 		Printer printer = Printer.getPrinter(); // singleton
 		Print p = new TitlePrint("병원 관리 프로그램");
 
-		
 		Scanner sc = new Scanner(System.in);
 		Boolean run = true;
 		int num1, num2 = 0;
 		String id = "", pw;
 		String position = "fail";
 
-		//List<List<String>> list = new ArrayList<List<String>>();
-		
 		Menu Menu = new Menu();
-		
+
 		// 환자 정보 불러오기
 		File patientfile = new PatientFile("patientfile");
 		patientfile.setLoadstrategy(new PatientLoad());
 		List<Patient> patientList = new ArrayList<Patient>();
 		patientList = (List<Patient>) patientfile.load();
-		//patientList = patientManage.loadPatient();
 
 		File userfile = new UserFile("userfile");
 		userfile.setLoadstrategy(new UserLoad());
 		userfile.setSavestrategy(new UserSave());
 		List<User> userlist = new ArrayList<User>();
 		userlist = (List<User>) userfile.load();
-		//userlist = fileinout.loadFile();
-		
-//		BufferedReader bufferedReader = null;
-//
-//		try {
-//			bufferedReader = Files.newBufferedReader(Paths.get("./data/userdata.csv"));
-//			String line = "";
-//
-//			while ((line = bufferedReader.readLine()) != null) {
-//				List<String> stringList = new ArrayList<>();
-//				String stringArray[] = line.split(",");
-//				stringList = Arrays.asList(stringArray);
-//				list.add(stringList);
-//			}
-//
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		finally {
-//			try {
-//				assert bufferedReader != null;
-//				bufferedReader.close();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
+
 		EmploymentManagement emplmanage = new EmploymentManagement(userlist);
 		File schedulefile = new ScheduleFile("schedulefile");
 		schedulefile.setLoadstrategy(new ScheduleLoad());
 		List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
 		schedule = (List<List<List<String>>>) schedulefile.load();
-		
-		
-		//work.loadWorkSchedule(schedule);
+
 		/*
 		 * 리스트 출력 for (List<String> item : list) { printer.println(item.get(0) + "and" +
 		 * item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
@@ -158,7 +114,7 @@ public class HospitalProgram {
 							while (true) {
 								int schedule1 = 0;
 								printer.print(Menu.Schedule);
-								
+
 								while (true) {
 									try {
 										schedule1 = sc.nextInt();
@@ -187,8 +143,7 @@ public class HospitalProgram {
 								}
 							}
 
-						}
-						else if(num1 == 5) {
+						} else if (num1 == 5) {
 							while (true) {
 								int patient1 = 0;
 								printer.print(Menu.Patient);
@@ -218,7 +173,7 @@ public class HospitalProgram {
 
 							}
 						}
-						
+
 						else if (num1 == 1) {// 고용관리
 							while (true) {
 								printer.print(Menu.Employment);
@@ -231,12 +186,12 @@ public class HospitalProgram {
 										sc = new Scanner(System.in);
 										printer.print(Menu.Number);
 										printer.print(Menu.Employment);
-						//오류있던부분      //printer.print(inputOnlyNumber);
-										//printer.println("**** 병원 관리 프로그램 ****");
-										//printer.println("1. 로그인");
-										//printer.println("2. 회원등록");
-										//printer.println("0. 종료\n\n");
-										//printer.print("원하는 메뉴의 번호를 입력하세요 : ");
+										// 오류있던부분 //printer.print(inputOnlyNumber);
+										// printer.println("**** 병원 관리 프로그램 ****");
+										// printer.println("1. 로그인");
+										// printer.println("2. 회원등록");
+										// printer.println("0. 종료\n\n");
+										// printer.print("원하는 메뉴의 번호를 입력하세요 : ");
 									}
 								}
 
@@ -265,40 +220,8 @@ public class HospitalProgram {
 										user.setDepartment(sc.next());
 										user.setPosition("Doctor");
 										userlist = emplmanage.addDoctor(user);
-										
-										userfile.save(userlist);
-										//fileinout.saveFile(userlist);
-										
 
-//										try {
-//
-//											StringBuffer data = new StringBuffer();
-//											Charset.forName("UTF-8");
-//											for (List<String> item : list) {
-//
-//												data.append(item.get(0) + "," + item.get(1) + "," + item.get(2) + ","
-//														+ item.get(3) + "," + item.get(4) + "," + item.get(5) + "\n");
-//											}
-//											FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-//											outputStream.write(data.toString().getBytes());
-//											outputStream.close();
-//
-//											printer.println("저장완료");
-//
-//										} catch (FileNotFoundException e) {
-//											e.printStackTrace();
-//										} catch (IOException e) {
-//											e.printStackTrace();
-//										} finally {
-//											try {
-//												if (br != null) {
-//													br.close();
-//												}
-//											} catch (IOException e) {
-//												e.printStackTrace();
-//
-//											}
-//										}
+										userfile.save(userlist);
 
 									} else if (num == 2) {
 										User user = new User(userlist);
@@ -312,35 +235,6 @@ public class HospitalProgram {
 										userlist = emplmanage.addNurse(user);
 
 										userfile.save(userlist);
-//										fileinout.saveFile(userlist);
-//										try {
-//											StringBuffer data = new StringBuffer();
-//											Charset.forName("UTF-8");
-//											for (List<String> item : list) {
-//
-//												data.append(item.get(0) + "," + item.get(1) + "," + item.get(2) + ","
-//														+ item.get(3) + "," + item.get(4) + "," + item.get(5) + "\n");
-//											}
-//											FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-//											outputStream.write(data.toString().getBytes());
-//											outputStream.close();
-//
-//											printer.println("저장완료");
-//
-//										} catch (FileNotFoundException e) {
-//											e.printStackTrace();
-//										} catch (IOException e) {
-//											e.printStackTrace();
-//										} finally {
-//											try {
-//												if (br != null) {
-//													br.close();
-//												}
-//											} catch (IOException e) {
-//												e.printStackTrace();
-//
-//											}
-//										}
 									} else {
 										break;
 									}
@@ -410,19 +304,17 @@ public class HospitalProgram {
 								continue;
 							}
 
-						}
-						else if(num1==4) { // 전직원 조회(Iterator pattern)
+						} else if (num1 == 4) { // 전직원 조회(Iterator pattern)
 							UserList ul = new UserList(userlist);
-							printer.println("현재 직원은 총 " + ul.getLength() +"명 입니다.");
+							printer.println("현재 직원은 총 " + ul.getLength() + "명 입니다.");
 							Iterator it = ul.iterator();
-							
-							while(it.hasNext()) {
+
+							while (it.hasNext()) {
 								User user = it.next();
 								printer.println(user.toString());
 							}
-							
-						}
-						else {
+
+						} else {
 							printer.println("잘못된 입력입니다. 다시 입력해주세요.\n\n");
 							continue;
 						}

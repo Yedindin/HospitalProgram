@@ -2,8 +2,6 @@ package com.handong.oodp;
 import java.util.List;
 
 import com.handong.oodp.iterator.User;
-
-
 import com.handong.oodp.Singleton.Printer;
 
 public class Login {

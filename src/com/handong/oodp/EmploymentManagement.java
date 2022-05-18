@@ -14,7 +14,7 @@ import com.handong.oodp.file.save.UserSave;
 import com.handong.oodp.iterator.User;
 
 public class EmploymentManagement {
-	// private List<List<String>> list;
+	
 	private List<User> userlist;
 
 	public EmploymentManagement(List<User> userlist) {
@@ -23,7 +23,6 @@ public class EmploymentManagement {
 
 	public List<User> addDoctor(User user) {
 		Printer printer = Printer.getPrinter(); // singleton
-		// List<String> data = new ArrayList<>();
 		User u = new User();
 		u.setName(user.getName());
 		u.setID("");
@@ -32,9 +31,7 @@ public class EmploymentManagement {
 		u.setPosition(user.getPosition());
 		u.setAge(user.getAge());
 		userlist.add(u);
-//		for (List<String> item : list) {
-//			printer.println(item.get(0) + "and" + item.get(1) + item.get(2) + item.get(3) + item.get(4) + item.get(5));
-//		}
+
 		printer.println("의사 추가 완료");
 		return userlist;
 
@@ -42,7 +39,6 @@ public class EmploymentManagement {
 
 	public List<User> addNurse(User user) {
 		Printer printer = Printer.getPrinter(); // singleton
-		// List<String> data = new ArrayList<>();
 		User u = new User();
 		u.setName(user.getName());
 		u.setID("");
@@ -65,7 +61,6 @@ public class EmploymentManagement {
 	public List<User> deleteDoctor(String name) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
-		// FileINnOUT fileinout = new FileINnOUT();
 		File userfile = new UserFile("userfile");
 		userfile.setSavestrategy(new UserSave());
 		int index = 0;
@@ -75,36 +70,7 @@ public class EmploymentManagement {
 				userlist.remove(index);
 				userfile.save(userlist);
 				printer.println("의사 삭제 완료");
-				// fileinout.saveFile(userlist);
 
-//				try {
-//
-//					StringBuffer data = new StringBuffer();
-//					Charset.forName("UTF-8");
-//					for (List<String> item2 : list) {
-//						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
-//								+ item2.get(4) + "," + item2.get(5) + "\n");
-//					}
-//					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-//					outputStream.write(data.toString().getBytes());
-//					outputStream.close();
-//
-//					printer.println("저장완료");
-//
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				} finally {
-//					try {
-//						if (br != null) {
-//							br.close();
-//						}
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//
-//					}
-//				}
 				return userlist;
 			}
 			index++;
@@ -117,7 +83,6 @@ public class EmploymentManagement {
 	public List<User> deleteNurse(String name) throws IOException {
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
 		Printer printer = Printer.getPrinter(); // singleton
-		// FileINnOUT fileinout = new FileINnOUT();
 		File userfile = new UserFile("userfile");
 		userfile.setSavestrategy(new UserSave());
 		int index = 0;
@@ -128,36 +93,7 @@ public class EmploymentManagement {
 				userfile.save(userlist);
 
 				printer.println("간호사 삭제 완료");
-				// fileinout.saveFile(userlist);
 
-//				try {
-//
-//					StringBuffer data = new StringBuffer();
-//					Charset.forName("UTF-8");
-//					for (List<String> item2 : list) {
-//						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
-//								+ item2.get(4) + "," + item2.get(5) + "\n");
-//					}
-//					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-//					outputStream.write(data.toString().getBytes());
-//					outputStream.close();
-//
-//					printer.println("저장완료");
-//
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				} finally {
-//					try {
-//						if (br != null) {
-//							br.close();
-//						}
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//
-//					}
-//				}
 				return userlist;
 			}
 			index++;

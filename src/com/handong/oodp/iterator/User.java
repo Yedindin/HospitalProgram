@@ -28,7 +28,6 @@ public class User {
 		Scanner sc = new Scanner(System.in);
 		Printer printer = Printer.getPrinter(); //singleton
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
-		FileINnOUT fileinout = new FileINnOUT();
 
 		for (User user : userlist) {
 			if(name.equals(user.getName()) && user.getID().equals("")) {
@@ -45,7 +44,6 @@ public class User {
 				user.setAge(user.getAge());
 				
 				
-				fileinout.saveFile(userlist);
 				return userlist;
 			}
 		}
@@ -63,36 +61,7 @@ public class User {
 //				item.set(4, item.get(4));
 //				item.set(5, item.get(5));
 //				
-//				fileinout.saveFile(list);
-//
-////				try {
-////
-////					StringBuffer data = new StringBuffer();
-////					Charset.forName("UTF-8");
-////					for (List<String> item2 : list) {
-////						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
-////								+ item2.get(4) + "," + item2.get(5) + "\n");
-////					}
-////					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-////					outputStream.write(data.toString().getBytes());
-////					outputStream.close();
-////
-////					printer.println("저장완료");
-////
-////				} catch (FileNotFoundException e) {
-////					e.printStackTrace();
-////				} catch (IOException e) {
-////					e.printStackTrace();
-////				} finally {
-////					try {
-////						if (br != null) {
-////							br.close();
-////						}
-////					} catch (IOException e) {
-////						e.printStackTrace();
-////
-////					}
-////				}
+//				
 //				return list;
 //			}
 //		}
@@ -115,8 +84,6 @@ public class User {
 //		printer.println("user 수정 완료");
 //	}
 //	public List<User> deleteUser(String name) throws IOException {
-//		//FileINnOUT fileinout = new FileINnOUT();
-//		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
 //		Printer printer = Printer.getPrinter(); //singleton
 //		File userfile = new UserFile("userfile");
 //		userfile.setSavestrategy(new UserSave());
@@ -130,34 +97,6 @@ public class User {
 //				printer.println("user 삭제 완료");
 //				//fileinout.saveFile(userlist);
 
-//				try {
-//
-//					StringBuffer data = new StringBuffer();
-//					Charset.forName("UTF-8");
-//					for (List<String> item2 : list) {
-//						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
-//								+ item2.get(4) + "," + item2.get(5) + "\n");
-//					}
-//					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-//					outputStream.write(data.toString().getBytes());
-//					outputStream.close();
-//
-//					printer.println("저장완료");
-//
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				} finally {
-//					try {
-//						if (br != null) {
-//							br.close();
-//						}
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//
-//					}
-//				}
 //				return userlist;
 //			}
 //			index++;

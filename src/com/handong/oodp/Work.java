@@ -1,12 +1,6 @@
 package com.handong.oodp;
 
-import java.io.BufferedReader;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,64 +11,11 @@ import com.handong.oodp.file.ScheduleFile;
 import com.handong.oodp.file.save.ScheduleSave;
 import com.handong.oodp.iterator.User;
 
-
 import com.handong.oodp.Singleton.Printer;
 
 public class Work {
 
 	private List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
-
-//	public List<List<List<String>>> loadWorkSchedule(List<List<List<String>>> schedule) {
-//		Printer printer = Printer.getPrinter(); // singleton
-//		try {
-//			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/applySchedule.csv"));
-//			String line = "";
-//			int row_count = 0;
-//
-//			while ((line = bufferedReader.readLine()) != null) {
-//				List<List<String>> weektime_ = new ArrayList<List<String>>(7);
-//				List<String> stringList = new ArrayList<>();
-//				String[] work_1 = new String[7];
-//				work_1 = line.split(",");
-//				for (String item : work_1) {
-//					String[] peopleList = item.split("/");
-//					stringList = Arrays.asList(peopleList);
-//					weektime_.add(stringList);
-//				}
-//				schedule.add(weektime_);
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return schedule;
-//	}
-
-//   public void updateWorkSchedule(List<List<List<String>>> schedule) {
-//	  Printer printer = Printer.getPrinter(); //singleton
-//      String filePath = "./data/applySchedule.csv";
-//      String NEWLINE = System.lineSeparator();
-//      try {
-//         File file = new File(filePath);
-//         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-//         for(int i = 0; i<schedule.size();i++) {
-//            for(int j = 0; j<schedule.get(i).size();j++) {
-//               String temp = "";
-//               for(int k = 0;k <schedule.get(i).get(j).size(); k++)
-//                  temp+=(schedule.get(i).get(j).get(k)+"/");
-//               temp+=",";
-//               bw.write(temp);
-//            }
-//            bw.write(NEWLINE);
-//         }
-//         bw.flush();
-//         bw.close();
-//      } catch (IOException e) {
-//         // TODO Auto-generated catch block
-//         e.printStackTrace();
-//      }
-//      
-//   }
 
 	public void displaySchedule(List<List<List<String>>> schedule) {
 		Printer printer = Printer.getPrinter(); // singleton
@@ -264,7 +205,6 @@ public class Work {
 			}
 		}
 		schedulefile.save(schedule);
-//		updateWorkSchedule(schedule);
 		return schedule;
 	}
 
@@ -372,7 +312,6 @@ public class Work {
 			schedule.set(j, week);
 		} // not manager
 		schedulefile.save(schedule);
-//		updateWorkSchedule(schedule);
 		printer.println("추가되었습니다.");
 		return schedule;
 	}

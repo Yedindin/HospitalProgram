@@ -31,7 +31,6 @@ public class UserList implements Aggregate{
 		Scanner sc = new Scanner(System.in);
 		Printer printer = Printer.getPrinter(); //singleton
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
-		//FileINnOUT fileinout = new FileINnOUT();
 		File userfile = new UserFile("userfile");
 		userfile.setSavestrategy(new UserSave());
 
@@ -59,7 +58,6 @@ public class UserList implements Aggregate{
 		
 	}
 	public List<User> deleteUser(User user1) throws IOException {
-		//FileINnOUT fileinout = new FileINnOUT();
 		BufferedReader br = Files.newBufferedReader(Paths.get("./data/userdata.csv"), Charset.forName("UTF-8"));
 		Printer printer = Printer.getPrinter(); //singleton
 		File userfile = new UserFile("userfile");
@@ -73,36 +71,7 @@ public class UserList implements Aggregate{
 				
 				printer.println("user 삭제 완료");
 				userfile.save(userlist);
-				//fileinout.saveFile(userlist);
 
-//				try {
-//
-//					StringBuffer data = new StringBuffer();
-//					Charset.forName("UTF-8");
-//					for (List<String> item2 : list) {
-//						data.append(item2.get(0) + "," + item2.get(1) + "," + item2.get(2) + "," + item2.get(3) + ","
-//								+ item2.get(4) + "," + item2.get(5) + "\n");
-//					}
-//					FileOutputStream outputStream = new FileOutputStream("./data/userdata.csv");
-//					outputStream.write(data.toString().getBytes());
-//					outputStream.close();
-//
-//					printer.println("저장완료");
-//
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				} finally {
-//					try {
-//						if (br != null) {
-//							br.close();
-//						}
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//
-//					}
-//				}
 				return userlist;
 			}
 			index++;
@@ -131,7 +100,6 @@ public class UserList implements Aggregate{
 				user1.setAge(user1.getAge());
 				
 				userfile.save(userlist);
-				//fileinout.saveFile(userlist);
 				return userlist;
 			}
 		}
