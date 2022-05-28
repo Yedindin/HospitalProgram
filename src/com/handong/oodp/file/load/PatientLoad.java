@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.handong.oodp.Patient;
+import com.handong.oodp.Observer.Patient;
 
 public class PatientLoad implements LoadStrategy{
 

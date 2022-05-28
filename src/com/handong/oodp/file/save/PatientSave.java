@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import com.handong.oodp.Patient;
+import com.handong.oodp.Observer.Patient;
 
 import com.handong.oodp.Singleton.Printer;
 

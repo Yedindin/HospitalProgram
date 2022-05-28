@@ -1,4 +1,4 @@
-package com.handong.oodp;
+package com.handong.oodp.Observer;
 
 public class Patient {
 	private String name = "";

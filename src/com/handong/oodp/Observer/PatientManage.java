@@ -1,6 +1,7 @@
-package com.handong.oodp;
+package com.handong.oodp.Observer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -8,11 +9,13 @@ import java.util.Scanner;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.save.PatientSave;
+import com.handong.oodp.Observer.Patient;
 import com.handong.oodp.Singleton.Printer;
 
 public class PatientManage {
+	private List<Patient> patientList = new ArrayList<Patient>();
 
-	public List<Patient> removePatient(List<Patient> patientList) throws IOException {
+	public void removePatient() throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
 		String RegistrationNumber = "";
@@ -46,10 +49,9 @@ public class PatientManage {
 			}
 			break;
 		}
-		return patientList;
 	}
 
-	public List<Patient> addPatient(List<Patient> patientList) throws IOException {
+	public void addPatient() throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
 		File patientfile = new PatientFile("patientfile");
@@ -97,10 +99,9 @@ public class PatientManage {
 		patientList.add(new Patient(name, age, RegistrationNumber, detail));
 		patientfile.save(patientList);
 		printer.println("추가되었습니다.");
-		return patientList;
 	}
 
-	public void displayPatientList(List<Patient> patientList) {
+	public void displayPatientList() {
 		Printer printer = Printer.getPrinter(); // singleton
 		printer.println("\n\n****환자 목록****");
 		for (Patient i : patientList) {
@@ -110,4 +111,13 @@ public class PatientManage {
 			printer.println("상세정보 : " + i.getDetail() + " ");
 		}
 	}
+
+	public List<Patient> getPatients() {
+		return patientList;
+	}
+
+	public void setPatients(List<Patient> patients) {
+		this.patientList = patients;
+	}
+	
 }
