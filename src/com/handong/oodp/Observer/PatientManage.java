@@ -12,7 +12,7 @@ import com.handong.oodp.file.save.PatientSave;
 import com.handong.oodp.Observer.Patient;
 import com.handong.oodp.Singleton.Printer;
 
-public class PatientManage {
+public class PatientManage extends Subject {
 	private List<Patient> patientList = new ArrayList<Patient>();
 
 	public void removePatient() throws IOException {
@@ -49,6 +49,7 @@ public class PatientManage {
 			}
 			break;
 		}
+		notifyObservers();
 	}
 
 	public void addPatient() throws IOException {
@@ -99,17 +100,19 @@ public class PatientManage {
 		patientList.add(new Patient(name, age, RegistrationNumber, detail));
 		patientfile.save(patientList);
 		printer.println("추가되었습니다.");
+		notifyObservers();
 	}
 
 	public void displayPatientList() {
-		Printer printer = Printer.getPrinter(); // singleton
-		printer.println("\n\n****환자 목록****");
-		for (Patient i : patientList) {
-			printer.print("이름 : " + i.getName() + " ");
-			printer.print("나이 : " + Integer.toString(i.getAge()) + " ");
-			printer.print("주민번호 : " + i.getRegistrationNumber() + " ");
-			printer.println("상세정보 : " + i.getDetail() + " ");
-		}
+		notifyObservers();
+//		Printer printer = Printer.getPrinter(); // singleton
+//		printer.println("\n\n****환자 목록****");
+//		for (Patient i : patientList) {
+//			printer.print("이름 : " + i.getName() + " ");
+//			printer.print("나이 : " + Integer.toString(i.getAge()) + " ");
+//			printer.print("주민번호 : " + i.getRegistrationNumber() + " ");
+//			printer.println("상세정보 : " + i.getDetail() + " ");
+//		}
 	}
 
 	public List<Patient> getPatients() {

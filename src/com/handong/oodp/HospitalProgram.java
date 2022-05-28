@@ -10,6 +10,8 @@ import com.handong.oodp.Adapter.Print;
 import com.handong.oodp.Adapter.TitlePrint;
 import com.handong.oodp.Observer.Patient;
 import com.handong.oodp.Observer.PatientManage;
+import com.handong.oodp.Observer.ViewAgeMinMax;
+import com.handong.oodp.Observer.ViewPatientAll;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.ScheduleFile;
@@ -46,6 +48,9 @@ public class HospitalProgram {
 		patientfile.setLoadstrategy(new PatientLoad());
 		
 		patientManage.setPatients((List<Patient>) patientfile.load());
+		ViewPatientAll viewPatientAll = new ViewPatientAll(patientManage);
+		ViewAgeMinMax viewPatientAge = new ViewAgeMinMax(patientManage);
+
 
 		File userfile = new UserFile("userfile");
 		userfile.setLoadstrategy(new UserLoad());
@@ -164,19 +169,19 @@ public class HospitalProgram {
 								if (patient1 == 0) {
 									break;
 								} else if (patient1 == 1) {
-									//patientManage.displayPatientList(patientList);
-									printer.println("고치기");
+									patientManage.attach(viewPatientAll);
 									patientManage.displayPatientList();
+									patientManage.detach(viewPatientAll);
 								} else if (patient1 == 2) {
-									//patientList = patientManage.addPatient(patientList);
-									//***************** 고치기********************//
 									patientManage.addPatient();
-									printer.println("고치기");
 								} else if (patient1 == 3) {
-									//patientList = patientManage.removePatient(patientList);
-									printer.println("고치기");
 									patientManage.removePatient();
-								} else {
+								} 
+								else if (patient1 == 4) {
+									patientManage.attach(viewPatientAge);
+									patientManage.displayPatientList();
+									patientManage.detach(viewPatientAge);
+								}else {
 									printer.println("유효하지 않는 입력입니다.");
 								}
 
@@ -392,18 +397,20 @@ public class HospitalProgram {
 							if (patient1 == 0) {
 								break;
 							} else if (patient1 == 1) {
-								//patientManage.displayPatientList(patientList);
-								printer.println("고치기");
+								patientManage.attach(viewPatientAll);
 								patientManage.displayPatientList();
+								patientManage.detach(viewPatientAll);
 							} else if (patient1 == 2) {
-								//patientList = patientManage.addPatient(patientList);
-								printer.println("고치기");
 								patientManage.addPatient();
 							} else if (patient1 == 3) {
-								//patientList = patientManage.removePatient(patientList);
-								printer.println("고치기");
 								patientManage.removePatient();
-							} else {
+							} else if (patient1 == 4) {
+								patientManage.attach(viewPatientAge);
+								patientManage.displayPatientList();
+								patientManage.detach(viewPatientAge);
+							}
+							
+							else {
 								printer.println("유효하지 않는 입력입니다.");
 							}
 
