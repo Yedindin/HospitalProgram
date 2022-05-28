@@ -23,6 +23,12 @@ public class ViewPatientAll implements Observer {
 		Printer printer = Printer.getPrinter(); // singleton
 		printer.println("\n\n****전체 환자 목록****");
 		for (Patient i : patientList) {
+			if(i.getEmergency() == 1) {
+				printer.print("(응급)");
+			}
+			else {
+				printer.print("(일반)");
+			}
 			printer.print("이름 : " + i.getName() + " ");
 			printer.print("나이 : " + Integer.toString(i.getAge()) + " ");
 			printer.print("주민번호 : " + i.getRegistrationNumber() + " ");

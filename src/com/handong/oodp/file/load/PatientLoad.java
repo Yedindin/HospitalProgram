@@ -20,7 +20,7 @@ public class PatientLoad implements LoadStrategy{
 	        int row_count = 0;
 	         while ((line = bufferedReader.readLine()) != null) {
 	        	 String[] patient_1 = line.split(",");
-	        	 Patient temp = new Patient(patient_1[0],Integer.parseInt(patient_1[1]),patient_1[2],patient_1[3]);
+	        	 Patient temp = new Patient(patient_1[0],Integer.parseInt(patient_1[1]),patient_1[2],patient_1[3],Integer.parseInt(patient_1[4]));
 	        	 patientList.add(temp);
 	          }
 		} catch (IOException e) {

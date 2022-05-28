@@ -23,7 +23,7 @@ public class PatientSave implements SaveStrategy {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			for (Patient i : patientList) {
 				String temp = i.getName() + "," + Integer.toString(i.getAge()) + "," + i.getRegistrationNumber() + ","
-						+ i.getDetail() + NEWLINE;
+						+ i.getDetail() + "," + Integer.toString(i.getEmergency()) + NEWLINE;
 				bw.write(temp);
 			}
 			bw.flush();

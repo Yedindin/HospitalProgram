@@ -154,6 +154,8 @@ public class HospitalProgram {
 							while (true) {
 								int patient1 = 0;
 								printer.print(Menu.Patient);
+								patientManage.attach(viewPatientAll);
+								patientManage.attach(viewPatientAge);
 
 								while (true) {
 									try {
@@ -169,19 +171,28 @@ public class HospitalProgram {
 								if (patient1 == 0) {
 									break;
 								} else if (patient1 == 1) {
-									patientManage.attach(viewPatientAll);
-									patientManage.displayPatientList();
-									patientManage.detach(viewPatientAll);
-								} else if (patient1 == 2) {
-									patientManage.addPatient();
-								} else if (patient1 == 3) {
-									patientManage.removePatient();
-								} 
-								else if (patient1 == 4) {
-									patientManage.attach(viewPatientAge);
-									patientManage.displayPatientList();
 									patientManage.detach(viewPatientAge);
-								}else {
+									patientManage.displayPatientList();
+									patientManage.attach(viewPatientAge);
+								} else if (patient1 == 3) {
+									patientManage.addPatient();
+								} else if (patient1 == 4) {
+									patientManage.removePatient();
+								} else if (patient1 == 2) {
+									patientManage.detach(viewPatientAll);
+									patientManage.displayPatientList();
+									patientManage.attach(viewPatientAll);
+								}else if (patient1 == 4) {
+									patientManage.setEmergencyPatient(); //응급환자 전환
+								}
+								else if (patient1 == 5) {
+									patientManage.setGeneralPatient(); //일반환자 전환
+								}
+								else if (patient1 == 6) {
+									patientManage.changePatient(); //환자 정보 변경
+								}
+								
+								else {
 									printer.println("유효하지 않는 입력입니다.");
 								}
 
@@ -382,6 +393,8 @@ public class HospitalProgram {
 						while (client_num == 2) {
 							int patient1 = 0;
 							printer.print(Menu.Patient);
+							patientManage.attach(viewPatientAll);
+							patientManage.attach(viewPatientAge);
 
 							while (true) {
 								try {
@@ -397,17 +410,25 @@ public class HospitalProgram {
 							if (patient1 == 0) {
 								break;
 							} else if (patient1 == 1) {
-								patientManage.attach(viewPatientAll);
-								patientManage.displayPatientList();
-								patientManage.detach(viewPatientAll);
-							} else if (patient1 == 2) {
-								patientManage.addPatient();
-							} else if (patient1 == 3) {
-								patientManage.removePatient();
-							} else if (patient1 == 4) {
-								patientManage.attach(viewPatientAge);
-								patientManage.displayPatientList();
 								patientManage.detach(viewPatientAge);
+								patientManage.displayPatientList();
+								patientManage.attach(viewPatientAge);
+							} else if (patient1 == 3) {
+								patientManage.addPatient();
+							} else if (patient1 == 4) {
+								patientManage.removePatient();
+							} else if (patient1 == 2) {
+								patientManage.detach(viewPatientAll);
+								patientManage.displayPatientList();
+								patientManage.attach(viewPatientAll);
+							}else if (patient1 == 4) {
+								patientManage.setEmergencyPatient(); //응급환자 전환
+							}
+							else if (patient1 == 5) {
+								patientManage.setGeneralPatient(); //일반환자 전환
+							}
+							else if (patient1 == 6) {
+								patientManage.changePatient(); //환자 정보 변경
 							}
 							
 							else {
