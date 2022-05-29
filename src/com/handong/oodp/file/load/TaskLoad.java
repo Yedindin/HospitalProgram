@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.handong.oodp.Singleton.Printer;
 
-public class ScheduleLoad implements LoadStrategy{
+public class TaskLoad implements LoadStrategy{
 
 	
 
@@ -20,7 +20,7 @@ public class ScheduleLoad implements LoadStrategy{
 		List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
 		Printer printer = Printer.getPrinter(); // singleton
 		try {
-			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/applySchedule.csv"));
+			BufferedReader bufferedReader = Files.newBufferedReader(Paths.get("./data/applyTask.csv"));
 			String line = "";
 
 			while ((line = bufferedReader.readLine()) != null) {

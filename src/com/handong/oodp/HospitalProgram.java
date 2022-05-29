@@ -17,12 +17,19 @@ import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.ScheduleFile;
 import com.handong.oodp.file.UserFile;
 import com.handong.oodp.file.load.PatientLoad;
-import com.handong.oodp.file.load.ScheduleLoad;
+import com.handong.oodp.file.load.TaskLoad;
+import com.handong.oodp.file.load.ShiftLoad;
+import com.handong.oodp.file.load.DRoundingLoad;
+import com.handong.oodp.file.load.NRoundingLoad;
 import com.handong.oodp.file.load.UserLoad;
 import com.handong.oodp.file.save.UserSave;
 import com.handong.oodp.iterator.Iterator;
 import com.handong.oodp.iterator.User;
 import com.handong.oodp.iterator.UserList;
+import com.handong.oodp.template.DRoundingWork;
+import com.handong.oodp.template.NRoundingWork;
+import com.handong.oodp.template.TaskWork;
+import com.handong.oodp.template.Work;
 
 import java.io.IOException;
 
@@ -31,9 +38,10 @@ public class HospitalProgram {
 	public static void main(String[] args) throws IOException {
 		Login login = new Login();
 		PatientManage patientManage = new PatientManage();
-		Work work = new Work();
+		//Work work = new TaskWork();
 		Printer printer = Printer.getPrinter(); // singleton
 		Print p = new TitlePrint("병원 관리 프로그램");
+		Print f = new TitlePrint("프로그램을 종료합니다.");
 
 		Scanner sc = new Scanner(System.in);
 		Boolean run = true;
@@ -47,7 +55,7 @@ public class HospitalProgram {
 		File patientfile = new PatientFile("patientfile");
 		patientfile.setLoadstrategy(new PatientLoad());
 		
-		patientManage.setPatients((List<Patient>) patientfile.load());
+//		patientManage.setPatients((List<Patient>) patientfile.load());
 		ViewPatientAll viewPatientAll = new ViewPatientAll(patientManage);
 		ViewAgeMinMax viewPatientAge = new ViewAgeMinMax(patientManage);
 
@@ -59,17 +67,29 @@ public class HospitalProgram {
 		userlist = (List<User>) userfile.load();
 
 		EmploymentManagement emplmanage = new EmploymentManagement(userlist);
-		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setLoadstrategy(new ScheduleLoad());
-		List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
-		schedule = (List<List<List<String>>>) schedulefile.load();
+		File schedulefile1 = new ScheduleFile("schedulefile");
+		schedulefile1.setLoadstrategy(new TaskLoad());
+		List<List<List<String>>> schedule1 = new ArrayList<List<List<String>>>(3);
+		schedule1 = (List<List<List<String>>>) schedulefile1.load();
+		File schedulefile2 = new ScheduleFile("schedulefile");
+		schedulefile2.setLoadstrategy(new DRoundingLoad());
+		List<List<List<String>>> schedule2 = new ArrayList<List<List<String>>>(3);
+		schedule2 = (List<List<List<String>>>) schedulefile2.load();
+		File schedulefile3 = new ScheduleFile("schedulefile");
+		schedulefile3.setLoadstrategy(new NRoundingLoad());
+		List<List<List<String>>> schedule3 = new ArrayList<List<List<String>>>(3);
+		schedule3 = (List<List<List<String>>>) schedulefile3.load();
+		File schedulefile4 = new ScheduleFile("schedulefile");
+		schedulefile4.setLoadstrategy(new ShiftLoad());
+		List<List<List<String>>> schedule4 = new ArrayList<List<List<String>>>(3);
+		schedule4 = (List<List<List<String>>>) schedulefile4.load();
 
 		/*
 		 * 리스트 출력 for (List<String> item : list) { printer.println(item.get(0) + "and" +
 		 * item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
 		 */
 		while (true) {
-			p.printTitle();
+			p.printHead();
 			printer.print(Menu.main);
 
 			int state = 0;
@@ -80,7 +100,7 @@ public class HospitalProgram {
 				} catch (InputMismatchException e) {
 					sc = new Scanner(System.in);
 					printer.print(Menu.Number);
-					p.printTitle();
+					p.printHead();
 					printer.print(Menu.main);
 				}
 			}
@@ -119,31 +139,142 @@ public class HospitalProgram {
 							break;
 						} else if (num1 == 3) {
 							while (true) {
-								int schedule1 = 0;
-								printer.print(Menu.Schedule);
+								int s1 = 0, s2 = 0;
+								printer.print(Menu.Work);
 
 								while (true) {
 									try {
-										schedule1 = sc.nextInt();
+										s1 = sc.nextInt();
 										break;
 									} catch (InputMismatchException e) {
 										sc = new Scanner(System.in);
 										printer.print(Menu.Number);
-										printer.print(Menu.Schedule);
+										printer.print(Menu.Work);
 									}
 								}
-
-								if (schedule1 == 0) {
+								if (s1 == 0) {
 									break;
-								} else if (schedule1 == 1) {
-									work.displaySchedule(schedule);
-								} else if (schedule1 == 2) {
-									String name = login.getName(id, userlist);
-									schedule = work.addWorkSchedule(name, position, userlist, schedule);
-								} else if (schedule1 == 3) {
-									String name = login.getName(id, userlist);
-									schedule = work.deleteWorkSchedule(name, position, userlist, schedule);
-								} else if (schedule1 == 0) {
+								} else if (s1 == 1) {
+									while (true) {
+										Work work = new TaskWork();
+										printer.print(Menu.Task);
+										while (true) {
+											try {
+												s2 = sc.nextInt();
+												break;
+											} catch (InputMismatchException e) {
+												sc = new Scanner(System.in);
+												printer.print(Menu.Number);
+												printer.print(Menu.Task);
+											}
+										}
+										if (s2 == 0) {
+											break;
+										} else if (s2 == 1) {
+											work.displaySchedule(schedule1);
+										} else if (s2 == 2) {
+											String name = login.getName(id, userlist);
+											schedule1 = work.addWorkSchedule(name, position, userlist, schedule1);
+										} else if (s2 == 3) {
+											String name = login.getName(id, userlist);
+											schedule1 = work.deleteWorkSchedule(name, position, userlist, schedule1);
+										} else if (s2 == 0) {
+											break;
+										} else {
+											printer.println("유효하지 않는 입력입니다.");
+										}
+									}
+								} else if (s1 == 2) {
+									while (true) {
+										Work work = new DRoundingWork();
+										printer.print(Menu.DRounding);
+										while (true) {
+											try {
+												s2 = sc.nextInt();
+												break;
+											} catch (InputMismatchException e) {
+												sc = new Scanner(System.in);
+												printer.print(Menu.Number);
+												printer.print(Menu.DRounding);
+											}
+										}
+										if (s2 == 0) {
+											break;
+										} else if (s2 == 1) {
+											work.displaySchedule(schedule2);
+										} else if (s2 == 2) {
+											String name = login.getName(id, userlist);
+											schedule2 = work.addWorkSchedule(name, position, userlist, schedule2);
+										} else if (s2 == 3) {
+											String name = login.getName(id, userlist);
+											schedule2 = work.deleteWorkSchedule(name, position, userlist, schedule2);
+										} else if (s2 == 0) {
+											break;
+										} else {
+											printer.println("유효하지 않는 입력입니다.");
+										}
+									}
+								} else if (s1 == 3) {
+									while (true) {
+										Work work = new NRoundingWork();
+										printer.print(Menu.NRounding);
+										while (true) {
+											try {
+												s2 = sc.nextInt();
+												break;
+											} catch (InputMismatchException e) {
+												sc = new Scanner(System.in);
+												printer.print(Menu.Number);
+												printer.print(Menu.NRounding);
+											}
+										}
+										if (s2 == 0) {
+											break;
+										} else if (s2 == 1) {
+											work.displaySchedule(schedule3);
+										} else if (s2 == 2) {
+											String name = login.getName(id, userlist);
+											schedule3 = work.addWorkSchedule(name, position, userlist, schedule3);
+										} else if (s2 == 3) {
+											String name = login.getName(id, userlist);
+											schedule3 = work.deleteWorkSchedule(name, position, userlist, schedule3);
+										} else if (s2 == 0) {
+											break;
+										} else {
+											printer.println("유효하지 않는 입력입니다.");
+										}
+									}
+								} else if (s1 == 4) {
+									while (true) {
+										Work work = new NRoundingWork();
+										printer.print(Menu.NRounding);
+										while (true) {
+											try {
+												s2 = sc.nextInt();
+												break;
+											} catch (InputMismatchException e) {
+												sc = new Scanner(System.in);
+												printer.print(Menu.Number);
+												printer.print(Menu.NRounding);
+											}
+										}
+										if (s2 == 0) {
+											break;
+										} else if (s2 == 1) {
+											work.displaySchedule(schedule3);
+										} else if (s2 == 2) {
+											String name = login.getName(id, userlist);
+											schedule3 = work.addWorkSchedule(name, position, userlist, schedule3);
+										} else if (s2 == 3) {
+											String name = login.getName(id, userlist);
+											schedule3 = work.deleteWorkSchedule(name, position, userlist, schedule3);
+										} else if (s2 == 0) {
+											break;
+										} else {
+											printer.println("유효하지 않는 입력입니다.");
+										}
+									}
+								} else if (s1 == 0) {
 									break;
 								} else {
 									printer.println("유효하지 않는 입력입니다.");
@@ -362,30 +493,123 @@ public class HospitalProgram {
 						}
 						while (client_num == 1) {
 
-							int schedule1 = 0;
-							printer.print(Menu.Schedule);
+							int s1 = 0, s2 = 0;
+							printer.print(Menu.CWork);
 
 							while (true) {
 								try {
-									schedule1 = sc.nextInt();
+									s1 = sc.nextInt();
 									break;
 								} catch (InputMismatchException e) {
 									sc = new Scanner(System.in);
 									printer.print(Menu.Number);
-									printer.print(Menu.Schedule);
+									printer.print(Menu.CWork);
 								}
 							}
+							if(s1 == 2 && position.equals("Nurse")) {
+								printer.print(Menu.NotD);
+								continue;
+							}
+							else if(s1 == 3 && position.equals("Doctor")) {
+								printer.print(Menu.NotN);
+								continue;
+							}
+							
 
-							if (schedule1 == 0) {
+							if (s1 == 0) {
 								break;
-							} else if (schedule1 == 1) {
-								work.displaySchedule(schedule);
-							} else if (schedule1 == 2) {
-								String name = login.getName(id, userlist);
-								schedule = work.addWorkSchedule(name, position, userlist, schedule);
-							} else if (schedule1 == 3) {
-								String name = login.getName(id, userlist);
-								schedule = work.deleteWorkSchedule(name, position, userlist, schedule);
+							} else if (s1 == 1) {
+								while (true) {
+									Work work = new TaskWork();
+									printer.print(Menu.Task);
+									while (true) {
+										try {
+											s2 = sc.nextInt();
+											break;
+										} catch (InputMismatchException e) {
+											sc = new Scanner(System.in);
+											printer.print(Menu.Number);
+											printer.print(Menu.Task);
+										}
+									}
+									if (s2 == 0) {
+										break;
+									} else if (s2 == 1) {
+										work.displaySchedule(schedule1);
+									} else if (s2 == 2) {
+										String name = login.getName(id, userlist);
+										schedule1 = work.addWorkSchedule(name, position, userlist, schedule1);
+									} else if (s2 == 3) {
+										String name = login.getName(id, userlist);
+										schedule1 = work.deleteWorkSchedule(name, position, userlist, schedule1);
+									} else if (s2 == 0) {
+										break;
+									} else {
+										printer.println("유효하지 않는 입력입니다.");
+									}
+								}
+							} else if (s1 == 2) {
+								while (true) {
+									Work work = new DRoundingWork();
+									printer.print(Menu.DRounding);
+									while (true) {
+										try {
+											s2 = sc.nextInt();
+											break;
+										} catch (InputMismatchException e) {
+											sc = new Scanner(System.in);
+											printer.print(Menu.Number);
+											printer.print(Menu.DRounding);
+										}
+									}
+									if (s2 == 0) {
+										break;
+									} else if (s2 == 1) {
+										work.displaySchedule(schedule2);
+									} else if (s2 == 2) {
+										String name = login.getName(id, userlist);
+										schedule2 = work.addWorkSchedule(name, position, userlist, schedule2);
+									} else if (s2 == 3) {
+										String name = login.getName(id, userlist);
+										schedule2 = work.deleteWorkSchedule(name, position, userlist, schedule2);
+									} else if (s2 == 0) {
+										break;
+									} else {
+										printer.println("유효하지 않는 입력입니다.");
+									}
+								}
+							} else if (s1 == 3) {
+								while (true) {
+									Work work = new NRoundingWork();
+									printer.print(Menu.NRounding);
+									while (true) {
+										try {
+											s2 = sc.nextInt();
+											break;
+										} catch (InputMismatchException e) {
+											sc = new Scanner(System.in);
+											printer.print(Menu.Number);
+											printer.print(Menu.NRounding);
+										}
+									}
+									if (s2 == 0) {
+										break;
+									} else if (s2 == 1) {
+										work.displaySchedule(schedule3);
+									} else if (s2 == 2) {
+										String name = login.getName(id, userlist);
+										schedule3 = work.addWorkSchedule(name, position, userlist, schedule3);
+									} else if (s2 == 3) {
+										String name = login.getName(id, userlist);
+										schedule3 = work.deleteWorkSchedule(name, position, userlist, schedule3);
+									} else if (s2 == 0) {
+										break;
+									} else {
+										printer.println("유효하지 않는 입력입니다.");
+									}
+								}
+							} else if (s1 == 0) {
+								break;
 							} else {
 								printer.println("유효하지 않는 입력입니다.");
 							}
@@ -451,7 +675,7 @@ public class HospitalProgram {
 				user.setName(sc.next());
 				userlist = u.appendUser(user);
 			} else if (state == 0) {
-
+				f.printEnd();
 				break;
 			} else {
 				printer.println("잘못된 입력입니다. 다시 입력해주세요.\n\n");

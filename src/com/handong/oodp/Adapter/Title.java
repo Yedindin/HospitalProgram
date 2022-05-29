@@ -8,4 +8,7 @@ public class Title {
 	public void showWithAster() {
 		System.out.println("****" + string + "****");
 	}
+	public void showWithDash() {
+		System.out.println("----" + string + "----");
+	}
 }

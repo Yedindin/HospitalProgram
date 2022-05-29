@@ -8,23 +8,21 @@ import java.util.List;
 
 import com.handong.oodp.Singleton.Printer;
 
-public class ScheduleSave implements SaveStrategy {
+public class ShiftSave implements SaveStrategy {
 
 	@Override
 	public void save(Object o) {
 		Printer printer = Printer.getPrinter(); // singleton
-		String filePath = "./data/applySchedule.csv";
+		String filePath = "./data/applyShift.csv";
 		String NEWLINE = System.lineSeparator();
-		List<List<List<String>>> schedule = (List<List<List<String>>>) o;
+		List<List<String>> schedule = (List<List<String>>) o;
 		try {
 			File file = new File(filePath);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			for (int i = 0; i < schedule.size(); i++) {
 				for (int j = 0; j < schedule.get(i).size(); j++) {
 					String temp = "";
-					for (int k = 0; k < schedule.get(i).get(j).size(); k++)
-						temp += (schedule.get(i).get(j).get(k) + "/");
-					temp += ",";
+					temp += (schedule.get(i).get(j) + ",");
 					bw.write(temp);
 				}
 				bw.write(NEWLINE);

@@ -1,4 +1,4 @@
-package com.handong.oodp;
+package com.handong.oodp.template;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,12 +8,14 @@ import java.util.Scanner;
 
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.ScheduleFile;
-import com.handong.oodp.file.save.ScheduleSave;
+import com.handong.oodp.file.save.TaskSave;
+import com.handong.oodp.file.save.NRoundingSave;
+import com.handong.oodp.file.save.DRoundingSave;
 import com.handong.oodp.iterator.User;
 
 import com.handong.oodp.Singleton.Printer;
 
-public class Work {
+public class NRoundingWork extends Work{
 
 	private List<List<List<String>>> schedule = new ArrayList<List<List<String>>>(3);
 
@@ -42,7 +44,7 @@ public class Work {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
 		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setSavestrategy(new ScheduleSave());
+		schedulefile.setSavestrategy(new NRoundingSave());
 		int i = 0, j = 0;
 		// display
 		if (position.equals("manager")) {
@@ -213,7 +215,7 @@ public class Work {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
 		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setSavestrategy(new ScheduleSave());
+		schedulefile.setSavestrategy(new NRoundingSave());
 		int i = 0, j = 0;
 		if (position.equals("manager")) {
 			printer.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
