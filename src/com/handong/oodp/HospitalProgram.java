@@ -30,6 +30,12 @@ import com.handong.oodp.template.DRoundingWork;
 import com.handong.oodp.template.NRoundingWork;
 import com.handong.oodp.template.TaskWork;
 import com.handong.oodp.template.Work;
+import com.handong.oodp.visitor.Doctor;
+import com.handong.oodp.visitor.NA;
+import com.handong.oodp.visitor.Nurse;
+import com.handong.oodp.visitor.UserV;
+import com.handong.oodp.visitor.UserVisitor;
+import com.handong.oodp.visitor.Visitor;
 
 import java.io.IOException;
 
@@ -66,7 +72,6 @@ public class HospitalProgram {
 		List<User> userlist = new ArrayList<User>();
 		userlist = (List<User>) userfile.load();
 
-		EmploymentManagement emplmanage = new EmploymentManagement(userlist);
 		File schedulefile1 = new ScheduleFile("schedulefile");
 		schedulefile1.setLoadstrategy(new TaskLoad());
 		List<List<List<String>>> schedule1 = new ArrayList<List<List<String>>>(3);
@@ -375,7 +380,8 @@ public class HospitalProgram {
 										printer.println("부서를 입력해주세요.");
 										user.setDepartment(sc.next());
 										user.setPosition("Doctor");
-										userlist = emplmanage.addDoctor(user);
+										UserV userv = new Doctor(userlist);
+										userlist = userv.addUser(user);
 
 										userfile.save(userlist);
 
@@ -388,10 +394,25 @@ public class HospitalProgram {
 										printer.println("부서를 입력해주세요.");
 										user.setDepartment(sc.next());
 										user.setPosition("Nurse");
-										userlist = emplmanage.addNurse(user);
+										UserV userv = new Nurse(userlist);
+										userlist = userv.addUser(user);
 
 										userfile.save(userlist);
-									} else {
+									} 
+									else if(num == 3){
+										User user = new User(userlist);
+										printer.println("이름을 입력해주세요.");
+										user.setName(sc.next());
+										printer.println("나이를 입력해주세요.");
+										user.setAge(sc.next());
+										printer.println("부서를 입력해주세요.");
+										user.setDepartment(sc.next());
+										user.setPosition("NA");
+										UserV userv = new NA(userlist);
+										userlist = userv.addUser(user);
+
+										userfile.save(userlist);
+									}else {
 										break;
 									}
 								} else if (num2 == 2) {
@@ -413,16 +434,56 @@ public class HospitalProgram {
 									if (num == 1) {
 										printer.println("삭제할 의사의 이름을 입력해 주세요.");
 										User user = new User(userlist);
-										userlist = emplmanage.deleteDoctor(sc.next());
+										UserV userv = new Doctor(userlist);
+										userlist = userv.deleteUser(user);
 
 									} else if (num == 2) {
 										printer.println("삭제할 간호사의 이름을 입력해 주세요.");
 										User user = new User(userlist);
-										userlist = emplmanage.deleteNurse(sc.next());
-									} else {
+										UserV userv = new Nurse(userlist);
+										userlist = userv.deleteUser(user);
+									}else if (num == 3) {
+										printer.println("삭제할 간호조무사의 이름을 입력해 주세요.");
+										User user = new User(userlist);
+										UserV userv = new NA(userlist);
+										userlist = userv.deleteUser(user);
+									}else {
 										break;
 									}
-								} else {
+								} else if(num2==3){ //직원 수 조회 (position별)
+									printer.print(Menu.EmplTotal);
+
+									int num = 0;
+									while (true) {
+										try {
+											num = sc.nextInt();
+											break;
+										} catch (InputMismatchException e) {
+											sc = new Scanner(System.in);
+											printer.print(Menu.Number);
+											printer.print(Menu.Delete);
+
+										}
+									}
+									if(num==1) { //의사 수 조회
+										UserV userv = new Doctor(userlist);
+										Visitor visitor = new UserVisitor();
+										int total = userv.accept(visitor);
+										printer.print("총 의사 수는 " +total +"명 입니다.");
+									}else if(num==2) {//간호사 수 조회
+										UserV userv = new Nurse(userlist);
+										Visitor visitor = new UserVisitor();
+										int total = userv.accept(visitor);
+										printer.print("총 간호사 수는 " +total +"명 입니다.");
+									}else if(num==3) {//간호조무사 수 조회
+										UserV userv = new NA(userlist);
+										Visitor visitor = new UserVisitor();
+										int total = userv.accept(visitor);
+										printer.print("총 간호조무사 수는 " +total +"명 입니다.");
+									}else {
+										break;
+									}
+								}else {
 									break;
 								}
 							}
