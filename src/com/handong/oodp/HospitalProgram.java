@@ -60,7 +60,7 @@ public class HospitalProgram {
 		File patientfile = new PatientFile("patientfile");
 		patientfile.setLoadstrategy(new PatientLoad());
 		
-//		patientManage.setPatients((List<Patient>) patientfile.load());
+		patientManage.setPatients((List<Patient>) patientfile.load());
 		ViewPatientAll viewPatientAll = new ViewPatientAll(patientManage);
 		ViewAgeMinMax viewPatientAge = new ViewAgeMinMax(patientManage);
 
