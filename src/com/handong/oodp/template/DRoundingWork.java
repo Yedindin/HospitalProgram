@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import com.handong.oodp.file.DRoundingFile;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.ScheduleFile;
 import com.handong.oodp.file.save.TaskSave;
@@ -43,8 +44,8 @@ public class DRoundingWork extends Work{
 			List<List<List<String>>> schedule) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
-		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setSavestrategy(new DRoundingSave());
+		File droundingfile = new DRoundingFile("DRoundingfile");
+		droundingfile.setSavestrategy(new DRoundingSave());
 		int i = 0, j = 0;
 		// display
 		if (position.equals("manager")) {
@@ -206,7 +207,7 @@ public class DRoundingWork extends Work{
 				printer.println("삭제되었습니다.");
 			}
 		}
-		schedulefile.save(schedule);
+		droundingfile.save(schedule);
 		return schedule;
 	}
 
@@ -214,8 +215,8 @@ public class DRoundingWork extends Work{
 			List<List<List<String>>> schedule) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
-		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setSavestrategy(new DRoundingSave());
+		File droundingfile = new DRoundingFile("DRoundingfile");
+		droundingfile.setSavestrategy(new DRoundingSave());
 		int i = 0, j = 0;
 		if (position.equals("manager")) {
 			printer.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
@@ -313,7 +314,7 @@ public class DRoundingWork extends Work{
 			week.set(i, Arrays.asList(people_list));
 			schedule.set(j, week);
 		} // not manager
-		schedulefile.save(schedule);
+		droundingfile.save(schedule);
 		printer.println("추가되었습니다.");
 		return schedule;
 	}

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.handong.oodp.file.File;
+import com.handong.oodp.file.NRoundingFile;
 import com.handong.oodp.file.ScheduleFile;
 import com.handong.oodp.file.save.TaskSave;
 import com.handong.oodp.file.save.NRoundingSave;
@@ -43,8 +44,8 @@ public class NRoundingWork extends Work{
 			List<List<List<String>>> schedule) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
-		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setSavestrategy(new NRoundingSave());
+		File nroundingfile = new NRoundingFile("NRoundingfile");
+		nroundingfile.setSavestrategy(new NRoundingSave());
 		int i = 0, j = 0;
 		// display
 		if (position.equals("manager")) {
@@ -206,7 +207,7 @@ public class NRoundingWork extends Work{
 				printer.println("삭제되었습니다.");
 			}
 		}
-		schedulefile.save(schedule);
+		nroundingfile.save(schedule);
 		return schedule;
 	}
 
@@ -214,8 +215,8 @@ public class NRoundingWork extends Work{
 			List<List<List<String>>> schedule) throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
 		Scanner sc = new Scanner(System.in);
-		File schedulefile = new ScheduleFile("schedulefile");
-		schedulefile.setSavestrategy(new NRoundingSave());
+		File nroundingfile = new NRoundingFile("NRoundingfile");
+		nroundingfile.setSavestrategy(new NRoundingSave());
 		int i = 0, j = 0;
 		if (position.equals("manager")) {
 			printer.println("넣고 싶은 유저를 입력하세요 (예시.홍길동)");
@@ -313,7 +314,7 @@ public class NRoundingWork extends Work{
 			week.set(i, Arrays.asList(people_list));
 			schedule.set(j, week);
 		} // not manager
-		schedulefile.save(schedule);
+		nroundingfile.save(schedule);
 		printer.println("추가되었습니다.");
 		return schedule;
 	}
