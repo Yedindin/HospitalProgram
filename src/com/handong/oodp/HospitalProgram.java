@@ -18,7 +18,6 @@ import com.handong.oodp.file.ScheduleFile;
 import com.handong.oodp.file.UserFile;
 import com.handong.oodp.file.load.PatientLoad;
 import com.handong.oodp.file.load.TaskLoad;
-import com.handong.oodp.file.load.ShiftLoad;
 import com.handong.oodp.file.load.DRoundingLoad;
 import com.handong.oodp.file.load.NRoundingLoad;
 import com.handong.oodp.file.load.UserLoad;
@@ -85,9 +84,6 @@ public class HospitalProgram {
 		List<List<List<String>>> schedule3 = new ArrayList<List<List<String>>>(3);
 		schedule3 = (List<List<List<String>>>) schedulefile3.load();
 		File schedulefile4 = new ScheduleFile("schedulefile");
-		schedulefile4.setLoadstrategy(new ShiftLoad());
-		List<List<List<String>>> schedule4 = new ArrayList<List<List<String>>>(3);
-		schedule4 = (List<List<List<String>>>) schedulefile4.load();
 
 		/*
 		 * 리스트 출력 for (List<String> item : list) { printer.println(item.get(0) + "and" +
