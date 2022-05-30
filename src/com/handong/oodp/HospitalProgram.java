@@ -15,6 +15,7 @@ import com.handong.oodp.Observer.ViewPatientAll;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.ScheduleFile;
+import com.handong.oodp.file.TaskFile;
 import com.handong.oodp.file.UserFile;
 import com.handong.oodp.file.load.PatientLoad;
 import com.handong.oodp.file.load.TaskLoad;
@@ -60,7 +61,7 @@ public class HospitalProgram {
 		File patientfile = new PatientFile("patientfile");
 		patientfile.setLoadstrategy(new PatientLoad());
 		
-		patientManage.setPatients((List<Patient>) patientfile.load());
+//		patientManage.setPatients((List<Patient>) patientfile.load());
 		ViewPatientAll viewPatientAll = new ViewPatientAll(patientManage);
 		ViewAgeMinMax viewPatientAge = new ViewAgeMinMax(patientManage);
 
@@ -70,19 +71,23 @@ public class HospitalProgram {
 		userfile.setSavestrategy(new UserSave());
 		List<User> userlist = new ArrayList<User>();
 		userlist = (List<User>) userfile.load();
+		userfile.save(userlist);
 
-		File schedulefile1 = new ScheduleFile("schedulefile");
-		schedulefile1.setLoadstrategy(new TaskLoad());
-		List<List<List<String>>> schedule1 = new ArrayList<List<List<String>>>(3);
-		schedule1 = (List<List<List<String>>>) schedulefile1.load();
-		File schedulefile2 = new ScheduleFile("schedulefile");
-		schedulefile2.setLoadstrategy(new DRoundingLoad());
-		List<List<List<String>>> schedule2 = new ArrayList<List<List<String>>>(3);
-		schedule2 = (List<List<List<String>>>) schedulefile2.load();
-		File schedulefile3 = new ScheduleFile("schedulefile");
-		schedulefile3.setLoadstrategy(new NRoundingLoad());
-		List<List<List<String>>> schedule3 = new ArrayList<List<List<String>>>(3);
-		schedule3 = (List<List<List<String>>>) schedulefile3.load();
+		File taskfile = new TaskFile("taskfile");
+		taskfile.setLoadstrategy(new TaskLoad());
+		List<List<List<String>>> task = new ArrayList<List<List<String>>>(3);
+		task = (List<List<List<String>>>) taskfile.load();
+		
+		File droundingfile = new ScheduleFile("DRoundingfile");
+		droundingfile.setLoadstrategy(new DRoundingLoad());
+		List<List<List<String>>> drounding = new ArrayList<List<List<String>>>(3);
+		drounding = (List<List<List<String>>>) droundingfile.load();
+		
+		File nroundingfile = new ScheduleFile("NRoundingLoadfile");
+		nroundingfile.setLoadstrategy(new NRoundingLoad());
+		List<List<List<String>>> nrounding = new ArrayList<List<List<String>>>(3);
+		nrounding = (List<List<List<String>>>) nroundingfile.load();
+		
 		File schedulefile4 = new ScheduleFile("schedulefile");
 
 		/*
@@ -172,13 +177,13 @@ public class HospitalProgram {
 										if (s2 == 0) {
 											break;
 										} else if (s2 == 1) {
-											work.displaySchedule(schedule1);
+											work.displaySchedule(task);
 										} else if (s2 == 2) {
 											String name = login.getName(id, userlist);
-											schedule1 = work.addWorkSchedule(name, position, userlist, schedule1);
+											task = work.addWorkSchedule(name, position, userlist, task);
 										} else if (s2 == 3) {
 											String name = login.getName(id, userlist);
-											schedule1 = work.deleteWorkSchedule(name, position, userlist, schedule1);
+											task = work.deleteWorkSchedule(name, position, userlist, task);
 										} else if (s2 == 0) {
 											break;
 										} else {
@@ -202,13 +207,13 @@ public class HospitalProgram {
 										if (s2 == 0) {
 											break;
 										} else if (s2 == 1) {
-											work.displaySchedule(schedule2);
+											work.displaySchedule(drounding);
 										} else if (s2 == 2) {
 											String name = login.getName(id, userlist);
-											schedule2 = work.addWorkSchedule(name, position, userlist, schedule2);
+											drounding = work.addWorkSchedule(name, position, userlist, drounding);
 										} else if (s2 == 3) {
 											String name = login.getName(id, userlist);
-											schedule2 = work.deleteWorkSchedule(name, position, userlist, schedule2);
+											drounding = work.deleteWorkSchedule(name, position, userlist, drounding);
 										} else if (s2 == 0) {
 											break;
 										} else {
@@ -232,13 +237,13 @@ public class HospitalProgram {
 										if (s2 == 0) {
 											break;
 										} else if (s2 == 1) {
-											work.displaySchedule(schedule3);
+											work.displaySchedule(nrounding);
 										} else if (s2 == 2) {
 											String name = login.getName(id, userlist);
-											schedule3 = work.addWorkSchedule(name, position, userlist, schedule3);
+											nrounding = work.addWorkSchedule(name, position, userlist, nrounding);
 										} else if (s2 == 3) {
 											String name = login.getName(id, userlist);
-											schedule3 = work.deleteWorkSchedule(name, position, userlist, schedule3);
+											nrounding = work.deleteWorkSchedule(name, position, userlist, nrounding);
 										} else if (s2 == 0) {
 											break;
 										} else {
@@ -262,13 +267,13 @@ public class HospitalProgram {
 										if (s2 == 0) {
 											break;
 										} else if (s2 == 1) {
-											work.displaySchedule(schedule3);
+											work.displaySchedule(nrounding);
 										} else if (s2 == 2) {
 											String name = login.getName(id, userlist);
-											schedule3 = work.addWorkSchedule(name, position, userlist, schedule3);
+											nrounding = work.addWorkSchedule(name, position, userlist, nrounding);
 										} else if (s2 == 3) {
 											String name = login.getName(id, userlist);
-											schedule3 = work.deleteWorkSchedule(name, position, userlist, schedule3);
+											nrounding = work.deleteWorkSchedule(name, position, userlist, nrounding);
 										} else if (s2 == 0) {
 											break;
 										} else {
@@ -592,13 +597,13 @@ public class HospitalProgram {
 									if (s2 == 0) {
 										break;
 									} else if (s2 == 1) {
-										work.displaySchedule(schedule1);
+										work.displaySchedule(task);
 									} else if (s2 == 2) {
 										String name = login.getName(id, userlist);
-										schedule1 = work.addWorkSchedule(name, position, userlist, schedule1);
+										task = work.addWorkSchedule(name, position, userlist, task);
 									} else if (s2 == 3) {
 										String name = login.getName(id, userlist);
-										schedule1 = work.deleteWorkSchedule(name, position, userlist, schedule1);
+										task = work.deleteWorkSchedule(name, position, userlist, task);
 									} else if (s2 == 0) {
 										break;
 									} else {
@@ -622,13 +627,13 @@ public class HospitalProgram {
 									if (s2 == 0) {
 										break;
 									} else if (s2 == 1) {
-										work.displaySchedule(schedule2);
+										work.displaySchedule(drounding);
 									} else if (s2 == 2) {
 										String name = login.getName(id, userlist);
-										schedule2 = work.addWorkSchedule(name, position, userlist, schedule2);
+										drounding = work.addWorkSchedule(name, position, userlist, drounding);
 									} else if (s2 == 3) {
 										String name = login.getName(id, userlist);
-										schedule2 = work.deleteWorkSchedule(name, position, userlist, schedule2);
+										drounding = work.deleteWorkSchedule(name, position, userlist, drounding);
 									} else if (s2 == 0) {
 										break;
 									} else {
@@ -652,13 +657,13 @@ public class HospitalProgram {
 									if (s2 == 0) {
 										break;
 									} else if (s2 == 1) {
-										work.displaySchedule(schedule3);
+										work.displaySchedule(nrounding);
 									} else if (s2 == 2) {
 										String name = login.getName(id, userlist);
-										schedule3 = work.addWorkSchedule(name, position, userlist, schedule3);
+										nrounding = work.addWorkSchedule(name, position, userlist, nrounding);
 									} else if (s2 == 3) {
 										String name = login.getName(id, userlist);
-										schedule3 = work.deleteWorkSchedule(name, position, userlist, schedule3);
+										nrounding = work.deleteWorkSchedule(name, position, userlist, nrounding);
 									} else if (s2 == 0) {
 										break;
 									} else {
