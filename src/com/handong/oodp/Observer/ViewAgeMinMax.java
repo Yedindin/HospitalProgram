@@ -1,7 +1,7 @@
 package com.handong.oodp.Observer;
 
 import java.util.List;
-
+import com.handong.oodp.Builder.Patient;
 import com.handong.oodp.Singleton.Printer;
 
 public class ViewAgeMinMax implements Observer {

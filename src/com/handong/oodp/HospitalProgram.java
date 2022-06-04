@@ -8,7 +8,7 @@ import java.util.Scanner;
 import com.handong.oodp.Singleton.Printer;
 import com.handong.oodp.Adapter.Print;
 import com.handong.oodp.Adapter.TitlePrint;
-import com.handong.oodp.Observer.Patient;
+import com.handong.oodp.Builder.Patient;
 import com.handong.oodp.Observer.PatientManage;
 import com.handong.oodp.Observer.ViewAgeMinMax;
 import com.handong.oodp.Observer.ViewPatientAll;
@@ -60,8 +60,7 @@ public class HospitalProgram {
 		// 환자 정보 불러오기
 		File patientfile = new PatientFile("patientfile");
 		patientfile.setLoadstrategy(new PatientLoad());
-		
-//		patientManage.setPatients((List<Patient>) patientfile.load());
+		patientManage.setPatients((List<Patient>) patientfile.load());
 		ViewPatientAll viewPatientAll = new ViewPatientAll(patientManage);
 		ViewAgeMinMax viewPatientAge = new ViewAgeMinMax(patientManage);
 
@@ -304,7 +303,6 @@ public class HospitalProgram {
 										printer.print(Menu.Patient);
 									}
 								}
-
 								if (patient1 == 0) {
 									break;
 								} else if (patient1 == 1) {
@@ -313,19 +311,22 @@ public class HospitalProgram {
 									patientManage.attach(viewPatientAge);
 								} else if (patient1 == 3) {
 									patientManage.addPatient();
-								} else if (patient1 == 4) {
+								}  else if (patient1 == 4) {
+									patientManage.addEPatient();
+								}
+								else if (patient1 == 5) {
 									patientManage.removePatient();
 								} else if (patient1 == 2) {
 									patientManage.detach(viewPatientAll);
 									patientManage.displayPatientList();
 									patientManage.attach(viewPatientAll);
-								}else if (patient1 == 4) {
+								}else if (patient1 == 6) {
 									patientManage.setEmergencyPatient(); //응급환자 전환
 								}
-								else if (patient1 == 5) {
+								else if (patient1 == 7) {
 									patientManage.setGeneralPatient(); //일반환자 전환
 								}
-								else if (patient1 == 6) {
+								else if (patient1 == 8) {
 									patientManage.changePatient(); //환자 정보 변경
 								}
 								
@@ -701,19 +702,22 @@ public class HospitalProgram {
 								patientManage.attach(viewPatientAge);
 							} else if (patient1 == 3) {
 								patientManage.addPatient();
-							} else if (patient1 == 4) {
+							}  else if (patient1 == 4) {
+								patientManage.addEPatient();
+							}
+							else if (patient1 == 5) {
 								patientManage.removePatient();
 							} else if (patient1 == 2) {
 								patientManage.detach(viewPatientAll);
 								patientManage.displayPatientList();
 								patientManage.attach(viewPatientAll);
-							}else if (patient1 == 4) {
+							}else if (patient1 == 6) {
 								patientManage.setEmergencyPatient(); //응급환자 전환
 							}
-							else if (patient1 == 5) {
+							else if (patient1 == 7) {
 								patientManage.setGeneralPatient(); //일반환자 전환
 							}
-							else if (patient1 == 6) {
+							else if (patient1 == 8) {
 								patientManage.changePatient(); //환자 정보 변경
 							}
 							
