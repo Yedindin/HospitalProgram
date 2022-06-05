@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.handong.oodp.Singleton.Printer;
 import com.handong.oodp.iterator.Surgery;
+import com.handong.oodp.state.ReadySurgeryState;
+import com.handong.oodp.state.State;
 import com.handong.oodp.state.SurgeryControl;
 
 public class SurgeryLoad implements LoadStrategy{
@@ -26,16 +28,23 @@ public class SurgeryLoad implements LoadStrategy{
 				String line = "";
 
 				while ((line = bufferedReader.readLine()) != null) {
-					Surgery surgery = new Surgery();
-					//List<String> stringList = new ArrayList<>();
 					String onesurgery[] = line.split(",");
+					
+					Surgery surgery = new Surgery();
+					SurgeryControl sct= new SurgeryControl(new ReadySurgeryState());
+					
+					State s = sct.findS(onesurgery[7]);
+					sct = new SurgeryControl(s);
+					
 					surgery.setIndex(onesurgery[0]);
 					surgery.setDate(onesurgery[1]);
 					surgery.setTime(onesurgery[2]);
 					surgery.setDepartment(onesurgery[3]);
 					surgery.setDoctor(onesurgery[4]);
 					surgery.setDetail(onesurgery[5]);
-					surgery.setState(new SurgeryControl());
+					surgery.setPatient(onesurgery[6]);
+					surgery.setState(onesurgery[7]);
+					surgery.setS(s);
 					
 					surgerylist.add(surgery);
 				}
