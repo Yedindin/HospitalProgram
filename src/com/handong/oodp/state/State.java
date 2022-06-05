@@ -5,5 +5,6 @@ public interface State {
 	void startSurgery();
 	void endSurgery();
 	void printCurrent();
-	
+	String getState();
+	State getS();
 }
