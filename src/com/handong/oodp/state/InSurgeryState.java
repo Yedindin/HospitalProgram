@@ -4,7 +4,8 @@ import com.handong.oodp.Singleton.Printer;
 
 public class InSurgeryState implements State {
 	Printer printer = Printer.getPrinter(); // singleton
-	private final SurgeryControl surgerycontrol = new SurgeryControl();
+	private SurgeryControl surgerycontrol;
+	
 	@Override
 	public void readySurgery() {
 		// in 상태에서는 이용 불가
@@ -27,5 +28,16 @@ public class InSurgeryState implements State {
 		printer.println("현재 수술 중 입니다.");
 
 	}
+
+	@Override
+	public String getState() {
+		return "수술중";
+	}
+	@Override
+	public State getS() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
 
 }

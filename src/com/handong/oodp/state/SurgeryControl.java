@@ -12,8 +12,25 @@ public class SurgeryControl {
 		this.inSurgeryState = new InSurgeryState();
 		this.readySurgeryState = new ReadySurgeryState();
 		this.endSurgeryState = new EndSurgeryState();
+	}
+	public SurgeryControl(State state) {
+		this.inSurgeryState = new InSurgeryState();
+		this.readySurgeryState = new ReadySurgeryState();
+		this.endSurgeryState = new EndSurgeryState();
 
-		this.currentState = this.readySurgeryState;
+		this.currentState = state;
+	}
+
+	public State getNextState(State current) {
+		State next = null;
+
+		if (current.equals(readySurgeryState))
+			next = inSurgeryState;
+		else if (current.equals(inSurgeryState))
+			next = endSurgeryState;
+		else
+			next = readySurgeryState;
+		return next;
 	}
 
 	public void changeState(State nextState) {
@@ -35,4 +52,24 @@ public class SurgeryControl {
 	public void printCurrent() {
 		this.currentState.printCurrent();
 	}
+
+	public String getState() {
+		return this.currentState.getState();
+	}
+
+	public State findS(String s) {
+		if (s.equals("수술대기중")) {
+			this.currentState = this.readySurgeryState;
+		} else if (s.equals("수술중")) {
+			this.currentState = this.inSurgeryState;
+		} else {
+			this.currentState = this.endSurgeryState;
+		}
+		return currentState;
+	}
+
+	public State getS() {
+		return this.currentState.getS();
+	}
+
 }
