@@ -529,7 +529,7 @@ public class HospitalProgram {
 							Iterator it = ul.iterator();
 
 							while (it.hasNext()) {
-								User user = it.next();
+								User user = (User) it.next();
 								printer.println(user.toString());
 							}
 
