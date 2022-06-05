@@ -12,18 +12,25 @@ import com.handong.oodp.Builder.Patient;
 import com.handong.oodp.Observer.PatientManage;
 import com.handong.oodp.Observer.ViewAgeMinMax;
 import com.handong.oodp.Observer.ViewPatientAll;
+import com.handong.oodp.file.DRoundingFile;
 import com.handong.oodp.file.File;
+import com.handong.oodp.file.NRoundingFile;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.ScheduleFile;
+import com.handong.oodp.file.SurgeryFile;
 import com.handong.oodp.file.TaskFile;
 import com.handong.oodp.file.UserFile;
 import com.handong.oodp.file.load.PatientLoad;
+import com.handong.oodp.file.load.SurgeryLoad;
 import com.handong.oodp.file.load.TaskLoad;
 import com.handong.oodp.file.load.DRoundingLoad;
 import com.handong.oodp.file.load.NRoundingLoad;
 import com.handong.oodp.file.load.UserLoad;
+import com.handong.oodp.file.save.SurgerySave;
 import com.handong.oodp.file.save.UserSave;
 import com.handong.oodp.iterator.Iterator;
+import com.handong.oodp.iterator.Surgery;
+import com.handong.oodp.iterator.SurgeryList;
 import com.handong.oodp.iterator.User;
 import com.handong.oodp.iterator.UserList;
 import com.handong.oodp.template.DRoundingWork;
@@ -70,22 +77,28 @@ public class HospitalProgram {
 		userfile.setSavestrategy(new UserSave());
 		List<User> userlist = new ArrayList<User>();
 		userlist = (List<User>) userfile.load();
-		userfile.save(userlist);
+		//userfile.save(userlist);
 
 		File taskfile = new TaskFile("taskfile");
 		taskfile.setLoadstrategy(new TaskLoad());
 		List<List<List<String>>> task = new ArrayList<List<List<String>>>(3);
 		task = (List<List<List<String>>>) taskfile.load();
 		
-		File droundingfile = new ScheduleFile("DRoundingfile");
+		File droundingfile = new DRoundingFile("DRoundingfile");
 		droundingfile.setLoadstrategy(new DRoundingLoad());
 		List<List<List<String>>> drounding = new ArrayList<List<List<String>>>(3);
 		drounding = (List<List<List<String>>>) droundingfile.load();
 		
-		File nroundingfile = new ScheduleFile("NRoundingLoadfile");
+		File nroundingfile = new NRoundingFile("NRoundingLoadfile");
 		nroundingfile.setLoadstrategy(new NRoundingLoad());
 		List<List<List<String>>> nrounding = new ArrayList<List<List<String>>>(3);
 		nrounding = (List<List<List<String>>>) nroundingfile.load();
+		
+		File surgeryfile = new SurgeryFile("surgeryfile");
+		surgeryfile.setLoadstrategy(new SurgeryLoad());
+		surgeryfile.setSavestrategy(new SurgerySave());
+		List<Surgery> surgerylist = new ArrayList<Surgery>();
+		surgerylist = (List<Surgery>) surgeryfile.load();
 		
 		File schedulefile4 = new ScheduleFile("schedulefile");
 
@@ -436,17 +449,20 @@ public class HospitalProgram {
 									if (num == 1) {
 										printer.println("삭제할 의사의 이름을 입력해 주세요.");
 										User user = new User(userlist);
+										user.setName(sc.next());
 										UserV userv = new Doctor(userlist);
 										userlist = userv.deleteUser(user);
 
 									} else if (num == 2) {
 										printer.println("삭제할 간호사의 이름을 입력해 주세요.");
 										User user = new User(userlist);
+										user.setName(sc.next());
 										UserV userv = new Nurse(userlist);
 										userlist = userv.deleteUser(user);
 									}else if (num == 3) {
 										printer.println("삭제할 간호조무사의 이름을 입력해 주세요.");
 										User user = new User(userlist);
+										user.setName(sc.next());
 										UserV userv = new NA(userlist);
 										userlist = userv.deleteUser(user);
 									}else {
@@ -539,7 +555,7 @@ public class HospitalProgram {
 						}
 					}
 
-				} else {
+				} else { //일반직원
 					while (true) {
 						printer.print(Menu.Employee);
 
@@ -726,12 +742,77 @@ public class HospitalProgram {
 							}
 
 						}
+						while(client_num == 3) {//수술관리
+							int surgery1 = 0;
+
+							printer.print(Menu.Surgery);
+							SurgeryList surgery  = new SurgeryList(surgerylist);
+							
+							while (true) {
+								try {
+									surgery1 = sc.nextInt();
+									break;
+								} catch (InputMismatchException e) {
+									sc = new Scanner(System.in);
+									printer.print(Menu.Number);
+									printer.print(Menu.Surgery);
+								}
+							}
+
+							if(surgery1 ==1) { //수술 조회
+								sc = new Scanner(System.in);
+								printer.print("조회할 수술 번호를 입력해주세요.");
+								Surgery s = new Surgery();
+								s = surgery.getSurgeryAt(sc.nextInt());
+								
+								if(s == null) {
+									printer.println("존재하지 않는 수술입니다.");
+								}else {
+									printer.println(s.toString());
+									printer.println("수술 상태를 변경하시겠습니까? (다음 단계로 넘기기 Y or N)");
+									String yn = sc.next();
+									if(yn.equals("Y") || yn.equals("y")) {
+										surgery.editSurgeryState(s.getIndex());
+									}else if(yn.equals("N") || yn.equals("n")) {
+										continue;
+									}
+										
+								}
+								
+								
+							}else if(surgery1 == 2) { // 수술 추가
+								
+								surgerylist = surgery.addSurgery();
+								continue;
+							}else if(surgery1 == 3) { //수술 수정
+								printer.println("수정할 수술 번호를 입력해 주세요.");
+								surgerylist = surgery.editSurgery(sc.next());
+							}else if(surgery1 == 4) { // 수술 삭제
+								printer.println("삭제할 수술 번호를 입력해 주세요.");
+								Surgery s = new Surgery();
+								s.setIndex(sc.next());
+								surgerylist = surgery.deleteSurgery(s);
+							}else if(surgery1 == 5) { //전체 수술 조회
+								printer.println("현재 등록된 수술은 " + surgery.getLength() + "명 입니다.");
+								Iterator it = surgery.iterator();
+
+								while (it.hasNext()) {
+									Surgery sur = (Surgery) it.next();
+									printer.println(sur.toString());
+								}
+								
+							}else if(surgery1 == 0) { //이전으로 돌아가기
+								break;
+							}
+			
+						}
 						if (client_num == 0) {
 							position = "fail";
 							break;
 						} else {
 							continue;
 						}
+						
 					}
 				}
 			} else if (state == 2) {
