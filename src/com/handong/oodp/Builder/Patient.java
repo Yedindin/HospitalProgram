@@ -1,18 +1,21 @@
-package com.handong.oodp.Observer;
+package com.handong.oodp.Builder;
 
 public class Patient {
-	private String name = "";
+	private String name;
 	private int age;
-	private String registrationNumber ="";
-	private String detail = "";
+	private String registrationNumber;
+	private String detail;
 	private int emergency;
 	
-	public Patient (String name, int age, String registrationNumber, String detail, int emergency) {
-		this.setName(name);
-		this.setAge(age);
-		this.setRegistrationNumber(registrationNumber);
-		this.setDetail(detail);
-		this.setEmergency(emergency);
+	public Patient(String name,int age,String registrationNumber,String detail,int emergency){
+		this.name = name;
+		this.age = age;
+		this.registrationNumber = registrationNumber;
+		this.detail = detail;
+		this.emergency =emergency;
+	}
+	public Patient(){
+		
 	}
 
 	public String getName() {

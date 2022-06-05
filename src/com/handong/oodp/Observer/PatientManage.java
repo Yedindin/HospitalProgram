@@ -9,7 +9,11 @@ import java.util.Scanner;
 import com.handong.oodp.file.File;
 import com.handong.oodp.file.PatientFile;
 import com.handong.oodp.file.save.PatientSave;
-import com.handong.oodp.Observer.Patient;
+import com.handong.oodp.Builder.Builder;
+import com.handong.oodp.Builder.Director;
+import com.handong.oodp.Builder.EmergencyPatient;
+import com.handong.oodp.Builder.GeneralPatient;
+import com.handong.oodp.Builder.Patient;
 import com.handong.oodp.Singleton.Printer;
 
 public class PatientManage extends Subject {
@@ -137,6 +141,60 @@ public class PatientManage extends Subject {
 		}
 		notifyObservers();
 	}
+	public void addEPatient() throws IOException {
+		Printer printer = Printer.getPrinter(); // singleton
+		Scanner sc = new Scanner(System.in);
+		File patientfile = new PatientFile("patientfile");
+		patientfile.setSavestrategy(new PatientSave());
+		printer.println("환자 이름을 입력하세요. :");
+		String name = sc.nextLine();
+		int age = 0;
+		while (true) {
+			try {
+				printer.println("환자 나이를 입력하세요. :");
+				age = sc.nextInt();
+				break;
+			} catch (InputMismatchException e) {
+				sc = new Scanner(System.in);
+				printer.println("숫자를 입력해주세요.");
+			}
+		}
+		String RegistrationNumber = "";
+		while (true) {
+			printer.println("환자 주민번호를 입력하세요.(형식 = 123456-1234567) :");
+			RegistrationNumber = sc.next();
+			if (RegistrationNumber.length() != 14 || RegistrationNumber.indexOf("-") != 6) {
+				printer.println("유효하지 않은 입력입니다.");
+				sc = new Scanner(System.in);
+				continue;
+			}
+			boolean flag = false;
+
+			for (Patient i : patientList) {
+				if (i.getRegistrationNumber().equals(RegistrationNumber)) {
+					printer.println("이미 존재하는 환자입니다.");
+					flag = true;
+					sc = new Scanner(System.in);
+					break;
+				}
+			}
+			if (flag)
+				continue;
+
+			break;
+		}
+		printer.println("환자 상세정보를 입력하세요. :");
+		sc.nextLine();
+		String detail = sc.nextLine();
+		Builder emergencyPatientBuilder = new EmergencyPatient();
+		Director director = new Director(emergencyPatientBuilder);
+		director.build(name,age,RegistrationNumber,detail);
+		
+		patientList.add(director.getPatient());
+		patientfile.save(patientList);
+		printer.println("추가되었습니다.");
+		notifyObservers();
+	}
 
 	public void addPatient() throws IOException {
 		Printer printer = Printer.getPrinter(); // singleton
@@ -183,18 +241,11 @@ public class PatientManage extends Subject {
 		printer.println("환자 상세정보를 입력하세요. :");
 		sc.nextLine();
 		String detail = sc.nextLine();
-		int emergency;
-		while (true) {
-			try {
-				printer.println("응급환자 여부를 입력하세요. :(긴급 = 1)");
-				emergency = sc.nextInt();
-				break;
-			} catch (InputMismatchException e) {
-				sc = new Scanner(System.in);
-				printer.println("숫자를 입력해주세요.");
-			}
-		}
-		patientList.add(new Patient(name, age, RegistrationNumber, detail, emergency));
+		Builder generalPatientBuilder = new GeneralPatient();
+		Director director = new Director(generalPatientBuilder);
+		director.build(name,age,RegistrationNumber,detail);
+		
+		patientList.add(director.getPatient());
 		patientfile.save(patientList);
 		printer.println("추가되었습니다.");
 		notifyObservers();

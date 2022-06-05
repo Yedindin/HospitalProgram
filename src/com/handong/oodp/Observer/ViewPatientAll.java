@@ -2,7 +2,7 @@ package com.handong.oodp.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.handong.oodp.Builder.Patient;
 import com.handong.oodp.Singleton.Printer;
 
 public class ViewPatientAll implements Observer {
