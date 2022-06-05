@@ -17,7 +17,7 @@ public class SurgeryListIterator implements Iterator{
 
 	@Override
 	public Object next() {
-		Surgery surgery = surgerylist.getUserAt(index);
+		Surgery surgery = surgerylist.getSurgeryat(index);
 		index++;
 		return surgery;
 	}

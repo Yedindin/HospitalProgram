@@ -1,5 +1,7 @@
 package com.handong.oodp.iterator;
 
+import com.handong.oodp.state.State;
+
 public class Surgery {
 	private String index;
 	private String date;
@@ -9,6 +11,7 @@ public class Surgery {
 	private String detail;
 	private String patient;
 	private String state;
+	private State s;
 	
 	public String getIndex() {
 		return index;
@@ -58,5 +61,16 @@ public class Surgery {
 	public void setPatient(String patient) {
 		this.patient = patient;
 	}
-	
+	public State getS() {
+		return s;
+	}
+	public void setS(State s) {
+		this.s = s;
+	}
+	@Override
+	public String toString() {
+		return "---수술번호 : " + index + "---\n수술 날짜 : " + date + "\n수술시작시간 :" + time + "\n진료과 : " + department
+				+ "\n집도담당의 : " + doctor + "\n세부내용 : " + detail + "\n환자 : " + patient + "\n현재 상태 : " + state + "\n---------------";
+	}
+
 }
