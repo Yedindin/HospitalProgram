@@ -101,7 +101,8 @@ public class HospitalProgram {
 		surgerylist = (List<Surgery>) surgeryfile.load();
 		
 		File schedulefile4 = new ScheduleFile("schedulefile");
-
+		patientManage.attach(viewPatientAll);
+		patientManage.attach(viewPatientAge);
 		/*
 		 * 리스트 출력 for (List<String> item : list) { printer.println(item.get(0) + "and" +
 		 * item.get(1) + item.get(2) + item.get(3) + item.get(4) ); }
@@ -303,8 +304,6 @@ public class HospitalProgram {
 							while (true) {
 								int patient1 = 0;
 								printer.print(Menu.Patient);
-								patientManage.attach(viewPatientAll);
-								patientManage.attach(viewPatientAge);
 
 								while (true) {
 									try {
@@ -696,8 +695,7 @@ public class HospitalProgram {
 						while (client_num == 2) {
 							int patient1 = 0;
 							printer.print(Menu.Patient);
-							patientManage.attach(viewPatientAll);
-							patientManage.attach(viewPatientAge);
+							
 
 							while (true) {
 								try {

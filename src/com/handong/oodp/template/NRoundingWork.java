@@ -79,7 +79,7 @@ public class NRoundingWork extends Work{
 				else if (time.charAt(0) == '일')
 					i = 6;
 				else {
-					printer.println("유효하지 않는 입력입니다.");
+					//printer.println("유효하지 않는 입력입니다.");
 					return schedule;
 				}
 
@@ -90,7 +90,7 @@ public class NRoundingWork extends Work{
 				else if (time.charAt(1) == '3')
 					j = 2;
 				else {
-					printer.println("유효하지 않는 입력입니다.");
+					//printer.println("유효하지 않는 입력입니다.");
 					return schedule;
 				}
 
@@ -103,7 +103,7 @@ public class NRoundingWork extends Work{
 					}
 				}
 				if (flag) {
-					printer.println("유효하지 않는 입력입니다.");
+					//printer.println("유효하지 않는 입력입니다.");
 					return schedule;
 				} else {
 					List<List<String>> week = schedule.get(j);
@@ -153,7 +153,7 @@ public class NRoundingWork extends Work{
 			else if (time.charAt(0) == '일')
 				i = 6;
 			else {
-				printer.println("유효하지 않는 입력입니다.");
+				//printer.println("유효하지 않는 입력입니다.");
 				return schedule;
 			}
 
@@ -164,19 +164,19 @@ public class NRoundingWork extends Work{
 			else if (time.charAt(1) == '3')
 				j = 2;
 			else {
-				printer.println("유효하지 않는 입력입니다.");
+				//printer.println("유효하지 않는 입력입니다.");
 				return schedule;
 			}
 			Boolean flag = true;
 			for (int k = 0; k < schedule.get(j).get(i).size(); k++) {
 				if (user.equals(schedule.get(j).get(i).get(k))) {
-					printer.println("유효하지 않는 입력입니다.");
+					//printer.println("유효하지 않는 입력입니다.");
 					flag = false;
 					break;
 				}
 			}
 			if (flag) {
-				printer.println("유효하지 않는 입력입니다.");
+				//printer.println("유효하지 않는 입력입니다.");
 				return schedule;
 			} else {
 				List<List<String>> week = schedule.get(j);
@@ -248,7 +248,7 @@ public class NRoundingWork extends Work{
 				else if (time.charAt(0) == '일')
 					i = 6;
 				else {
-					printer.println("유효하지 않는 입력입니다.");
+					//printer.println("유효하지 않는 입력입니다.");
 					return schedule;
 				}
 
@@ -259,7 +259,7 @@ public class NRoundingWork extends Work{
 				else if (time.charAt(1) == '3')
 					j = 2;
 				else {
-					printer.println("유효하지 않는 입력입니다.");
+					//printer.println("유효하지 않는 입력입니다.");
 					return schedule;
 				}
 
@@ -290,7 +290,7 @@ public class NRoundingWork extends Work{
 			else if (time.charAt(0) == '일')
 				i = 6;
 			else {
-				printer.println("유효하지 않는 입력입니다.");
+				//printer.println("유효하지 않는 입력입니다.");
 				return schedule;
 			}
 
@@ -301,7 +301,7 @@ public class NRoundingWork extends Work{
 			else if (time.charAt(1) == '3')
 				j = 2;
 			else {
-				printer.println("유효하지 않는 입력입니다.");
+				//printer.println("유효하지 않는 입력입니다.");
 				return schedule;
 			}
 
