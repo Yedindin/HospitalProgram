@@ -47,7 +47,8 @@ public class SurgeryList implements Aggregate{
 		surgeryfile.setSavestrategy(new SurgerySave());
 		Surgery surgery1 = new Surgery();
 		
-		State s = new ReadySurgeryState();
+		SurgeryControl sct = new SurgeryControl();
+		State s = sct.findS("수술대기중");
 		String state = s.getState();
 		int index = this.getLength()+1;
 		surgery1.setIndex(Integer.toString(index));
@@ -123,7 +124,7 @@ public class SurgeryList implements Aggregate{
 		printer.println("존재하지 않는 수술번호입니다.");
 		return surgerylist;
 	}
-	public List<Surgery> editSurgeryState(String index) throws IOException {
+	public List<Surgery> editSurgeryState(String index, String num) throws IOException {
 		Scanner sc = new Scanner(System.in);
 		Printer printer = Printer.getPrinter(); //singleton
 		File surgeryfile = new SurgeryFile("surgeryfile");
@@ -135,12 +136,20 @@ public class SurgeryList implements Aggregate{
 				SurgeryControl sct = new SurgeryControl(surgery1.getS());
 				
 				sct.printCurrent();
-				surgery1.setS(sct.getNextState(surgery1.getS()));
+				surgery1.setS(sct.getNextState(num));
 				
+				if(num.equals("1")) {
+					sct.readSurgery();
+				}else if (num.equals("2")) {
+					sct.inSurgery();
+				}else if (num.equals("3")) {
+					sct.endSurgery();
+				}
 				printer.println("수술 상태가 변경되었습니다.");
 				
-				sct.changeState(surgery1.getS());
+				
 				sct.printCurrent();
+				
 				surgery1.setState(sct.getState());
 				
 				surgeryfile.save(surgerylist);

@@ -31,7 +31,7 @@ public class SurgeryLoad implements LoadStrategy{
 					String onesurgery[] = line.split(",");
 					
 					Surgery surgery = new Surgery();
-					SurgeryControl sct= new SurgeryControl(new ReadySurgeryState());
+					SurgeryControl sct= new SurgeryControl();
 					
 					State s = sct.findS(onesurgery[7]);
 					sct = new SurgeryControl(s);

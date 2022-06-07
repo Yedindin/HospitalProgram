@@ -2,34 +2,35 @@ package com.handong.oodp.state;
 
 public class SurgeryControl {
 
-	final State inSurgeryState;
-	final State readySurgeryState;
-	final State endSurgeryState;
+	final State inSurgery;
+	final State readySurgery;
+	final State endSurgery;
 
 	private State currentState;
 
 	public SurgeryControl() {
-		this.inSurgeryState = new InSurgeryState();
-		this.readySurgeryState = new ReadySurgeryState();
-		this.endSurgeryState = new EndSurgeryState();
+		this.inSurgery = new InSurgeryState(this);
+		this.readySurgery = new ReadySurgeryState(this);
+		this.endSurgery = new EndSurgeryState(this);
 	}
+
 	public SurgeryControl(State state) {
-		this.inSurgeryState = new InSurgeryState();
-		this.readySurgeryState = new ReadySurgeryState();
-		this.endSurgeryState = new EndSurgeryState();
+		this.inSurgery = new InSurgeryState(this);
+		this.readySurgery = new ReadySurgeryState(this);
+		this.endSurgery = new EndSurgeryState(this);
 
 		this.currentState = state;
 	}
 
-	public State getNextState(State current) {
+	public State getNextState(String num) {
 		State next = null;
 
-		if (current.equals(readySurgeryState))
-			next = inSurgeryState;
-		else if (current.equals(inSurgeryState))
-			next = endSurgeryState;
-		else
-			next = readySurgeryState;
+		if (num.equals("1"))
+			next = readySurgery;
+		else if (num.equals("2"))
+			next = inSurgery;
+		else if (num.equals("3"))
+			next = endSurgery;
 		return next;
 	}
 
@@ -38,15 +39,20 @@ public class SurgeryControl {
 	}
 
 	public void inSurgery() {
-		this.currentState = inSurgeryState;
+		this.currentState = inSurgery;
+		this.currentState.startSurgery();
 	}
 
 	public void readSurgery() {
-		this.currentState = readySurgeryState;
+		this.currentState = readySurgery;
+		this.currentState.readySurgery();
+
 	}
 
 	public void endSurgery() {
-		this.currentState = endSurgeryState;
+		this.currentState = endSurgery;
+		this.currentState.endSurgery();
+
 	}
 
 	public void printCurrent() {
@@ -59,11 +65,11 @@ public class SurgeryControl {
 
 	public State findS(String s) {
 		if (s.equals("수술대기중")) {
-			this.currentState = this.readySurgeryState;
+			this.currentState = this.readySurgery;
 		} else if (s.equals("수술중")) {
-			this.currentState = this.inSurgeryState;
+			this.currentState = this.inSurgery;
 		} else {
-			this.currentState = this.endSurgeryState;
+			this.currentState = this.endSurgery;
 		}
 		return currentState;
 	}

@@ -754,11 +754,11 @@ public class HospitalProgram {
 									printer.println("존재하지 않는 수술입니다.");
 								}else {
 									printer.println(s.toString());
-									printer.println("수술 상태를 변경하시겠습니까? (다음 단계로 넘기기 Y or N)");
-									String yn = sc.next();
-									if(yn.equals("Y") || yn.equals("y")) {
-										surgery.editSurgeryState(s.getIndex());
-									}else if(yn.equals("N") || yn.equals("n")) {
+									printer.println("수술 상태를 변경하시겠습니까? (1:수술대기 2:수술중 3:회복중 0:취소)");
+									String num = sc.next();
+									if(num.equals("1")||num.equals("2")||num.equals("3")) {
+										surgery.editSurgeryState(s.getIndex(), num);
+									}else if(num.equals("0")) {
 										continue;
 									}
 										

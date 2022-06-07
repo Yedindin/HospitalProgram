@@ -22,9 +22,11 @@ public class SurgerySave implements SaveStrategy {
 
 			StringBuffer data = new StringBuffer();
 			Charset.forName("UTF-8");
+			int i=1;
 			for (Surgery surgery : surgerylist) {
-				data.append(surgery.getIndex() + "," + surgery.getDate() + "," + surgery.getTime() + "," + surgery.getDepartment() + ","
+				data.append(i + "," + surgery.getDate() + "," + surgery.getTime() + "," + surgery.getDepartment() + ","
 						+ surgery.getDoctor() + "," +surgery.getDetail() + "," + surgery.getPatient() + "," + surgery.getState().toString() + "\n");
+				i++;
 			}
 			FileOutputStream outputStream = new FileOutputStream("./data/surgerydata.csv");
 			outputStream.write(data.toString().getBytes());

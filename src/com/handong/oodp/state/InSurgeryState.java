@@ -6,20 +6,23 @@ public class InSurgeryState implements State {
 	Printer printer = Printer.getPrinter(); // singleton
 	private SurgeryControl surgerycontrol;
 	
+	InSurgeryState(SurgeryControl surgerycontrol){
+		this.surgerycontrol = surgerycontrol;
+	}
 	@Override
 	public void readySurgery() {
-		// in 상태에서는 이용 불가
+		surgerycontrol.changeState(surgerycontrol.readySurgery);
 	}
 
 	@Override
 	public void startSurgery() {
-		// in 상태에서는 이용 불가
+		// TODO Auto-generated method stub
+		surgerycontrol.changeState(surgerycontrol.inSurgery);
 	}
 
 	@Override
 	public void endSurgery() {
-		// TODO Auto-generated method stub
-		surgerycontrol.changeState(surgerycontrol.endSurgeryState);
+		surgerycontrol.changeState(surgerycontrol.endSurgery);
 	}
 
 	@Override
