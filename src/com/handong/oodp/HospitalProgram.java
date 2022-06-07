@@ -9,6 +9,11 @@ import com.handong.oodp.Singleton.Printer;
 import com.handong.oodp.Adapter.Print;
 import com.handong.oodp.Adapter.TitlePrint;
 import com.handong.oodp.Builder.Patient;
+import com.handong.oodp.ChainOfResponsibility.Request;
+import com.handong.oodp.ChainOfResponsibility.TaskAdd;
+import com.handong.oodp.ChainOfResponsibility.TaskDel;
+import com.handong.oodp.ChainOfResponsibility.TaskDisp;
+import com.handong.oodp.ChainOfResponsibility.TaskWork;
 import com.handong.oodp.Observer.PatientManage;
 import com.handong.oodp.Observer.ViewAgeMinMax;
 import com.handong.oodp.Observer.ViewPatientAll;
@@ -35,7 +40,6 @@ import com.handong.oodp.iterator.User;
 import com.handong.oodp.iterator.UserList;
 import com.handong.oodp.template.DRoundingWork;
 import com.handong.oodp.template.NRoundingWork;
-import com.handong.oodp.template.TaskWork;
 import com.handong.oodp.template.Work;
 import com.handong.oodp.visitor.Doctor;
 import com.handong.oodp.visitor.NA;
@@ -47,6 +51,8 @@ import com.handong.oodp.visitor.Visitor;
 import java.io.IOException;
 
 public class HospitalProgram {
+
+	public static List<List<List<String>>> task = new ArrayList<List<List<String>>>(3);
 
 	public static void main(String[] args) throws IOException {
 		Login login = new Login();
@@ -81,7 +87,6 @@ public class HospitalProgram {
 
 		File taskfile = new TaskFile("taskfile");
 		taskfile.setLoadstrategy(new TaskLoad());
-		List<List<List<String>>> task = new ArrayList<List<List<String>>>(3);
 		task = (List<List<List<String>>>) taskfile.load();
 		
 		File droundingfile = new DRoundingFile("DRoundingfile");
@@ -175,7 +180,6 @@ public class HospitalProgram {
 									break;
 								} else if (s1 == 1) {
 									while (true) {
-										Work work = new TaskWork();
 										printer.print(Menu.Task);
 										while (true) {
 											try {
@@ -187,21 +191,13 @@ public class HospitalProgram {
 												printer.print(Menu.Task);
 											}
 										}
-										if (s2 == 0) {
-											break;
-										} else if (s2 == 1) {
-											work.displaySchedule(task);
-										} else if (s2 == 2) {
-											String name = login.getName(id, userlist);
-											task = work.addWorkSchedule(name, position, userlist, task);
-										} else if (s2 == 3) {
-											String name = login.getName(id, userlist);
-											task = work.deleteWorkSchedule(name, position, userlist, task);
-										} else if (s2 == 0) {
-											break;
-										} else {
-											printer.println("유효하지 않는 입력입니다.");
-										}
+										if (s2 == 0) break;
+										TaskWork TDisp = new TaskDisp(s2);
+										TaskWork TAdd = new TaskAdd(s2);
+										TaskWork TDel = new TaskDel(s2);
+										TDisp.setNext(TAdd).setNext(TDel);
+										String name = login.getName(id, userlist);
+										TDisp.work(new Request(s2, name, position, userlist, task));
 									}
 								} else if (s1 == 2) {
 									while (true) {
@@ -598,7 +594,6 @@ public class HospitalProgram {
 								break;
 							} else if (s1 == 1) {
 								while (true) {
-									Work work = new TaskWork();
 									printer.print(Menu.Task);
 									while (true) {
 										try {
@@ -610,21 +605,13 @@ public class HospitalProgram {
 											printer.print(Menu.Task);
 										}
 									}
-									if (s2 == 0) {
-										break;
-									} else if (s2 == 1) {
-										work.displaySchedule(task);
-									} else if (s2 == 2) {
-										String name = login.getName(id, userlist);
-										task = work.addWorkSchedule(name, position, userlist, task);
-									} else if (s2 == 3) {
-										String name = login.getName(id, userlist);
-										task = work.deleteWorkSchedule(name, position, userlist, task);
-									} else if (s2 == 0) {
-										break;
-									} else {
-										printer.println("유효하지 않는 입력입니다.");
-									}
+									if (s2 == 0) break;
+									TaskWork TDisp = new TaskDisp(s2);
+									TaskWork TAdd = new TaskAdd(s2);
+									TaskWork TDel = new TaskDel(s2);
+									TDisp.setNext(TAdd).setNext(TDel);
+									String name = login.getName(id, userlist);
+									TDisp.work(new Request(s2, name, position, userlist, task));
 								}
 							} else if (s1 == 2) {
 								while (true) {
